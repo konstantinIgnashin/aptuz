@@ -27,14 +27,16 @@ T.comments = (function(self, $){
 				return false;
 			});
 			$('.accept','tr').click(function(){
+				var tr = $(this).parents('tr');
 				T.loader.getJSON('/admin/comments_status/?status=0&id='+self.getCommentId(this), function(){			
-					alert("Accepted");
+					$('.status img', tr).attr('src','/pub/images/ok.png');					
 				});
 				return false;
 			});
 			$('.decline','tr').click(function(){
+				var tr = $(this).parents('tr');
 				T.loader.getJSON('/admin/comments_status/?status=1&id='+self.getCommentId(this), function(){			
-					alert("Declined");
+					$('.status img', tr).attr('src','/pub/images/er.png');					
 				});
 				return false;
 			});

@@ -110,7 +110,7 @@
 			<span class="s_status {{if getInfo.disable==1}}active{{/if}}" name="1">Declined</span>
 			<span class="s_status {{if getInfo.disable<0}}active{{/if}}" name="-1">All</span>
 			</div>
-			<table>
+			<table width="800">
 			<tr>
 				<th>#</th>
 				<th width="70">DATE</th>
@@ -125,16 +125,16 @@
 				<tr {{if i%2}}class="odd"{{/if}} v="${comment_id}">
 					<td>${id}</td>
 					<td>${comment_date}</td>
-					<td class="author">id:${id}</td>
-					<td class="text">${title}</td>
+					<td class="author">id:${comment_id}</td>
+					<td class="text">${comment_title}</td>
 					<td><a class="btn_small gray edit" href="#"><span>Edit</span></a></td>
 					<td>
 					{{if disable==1}}<a class="btn_small gray accept" href="#"><span>Accept</span></a>
 					{{else}}<a class="btn_small gray decline" href="#"><span>Decline</span></a>{{/if}}
 					
 					</td>
-					<td><a target="_blank" href="/office-girls-secretaries.html?gID=${gID}">${g_id}</a> ${title}</a></td>		
-					<td>{{if disable==1}}<img src="/pub/images/er.png">{{else}}<img src="/pub/images/ok.png">{{/if}}</td>							
+					<td><a target="_blank" href="/office-girls-secretaries.html?gID=${gID}">${content_id}</a> ${news_title}</a></td>		
+					<td class="status">{{if disable==1}}<img src="/pub/images/er.png">{{else}}<img src="/pub/images/ok.png">{{/if}}</td>							
 				</tr>
 			{{/each}}
 			</table>		

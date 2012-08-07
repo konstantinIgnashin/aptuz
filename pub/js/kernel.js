@@ -92,6 +92,11 @@ var T = (function(self, $){
 								console.log(i + ' = ', val);
 							});						
 						}
+						if(data.error){								
+							if(data.error=='auth'){								
+								return document.location='/admin/login';
+							}
+						}
 						if($.isFunction(callback)){
 							callback(data);	
 						}

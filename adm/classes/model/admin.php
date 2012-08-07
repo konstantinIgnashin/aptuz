@@ -207,7 +207,9 @@ public function getComments($offset,$sword,$disable){
 	   if($sword>0){
 	   	$add.=' and c.pid='.$sword;
 	   }
-	   $data = DB::query(Database::SELECT, " SELECT *,DATE_FORMAT( FROM_UNIXTIME( tstamp ),'%Y.%m.%d %H:%i' ) AS comment_date FROM room_comments c WHERE  1=1 ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();			
+	   $data = DB::query(Database::SELECT, " SELECT *, DATE_FORMAT( FROM_UNIXTIME( tstamp ),'%Y.%m.%d %H:%i' ) AS comment_date, id as comment_id, title as comment_title
+	   
+	    FROM room_comments c WHERE  1=1 ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();			
 		return $data;		   
 }
 
@@ -223,11 +225,11 @@ public function getCommentsNS($sword,$disable){
 }
 
 static function comment_status($status, $id ){
-	return DB::query(Database::UPDATE, "UPDATE content_comments SET disable='".$status."' WHERE id='".$id."' Limit 1")->execute();
+	return DB::query(Database::UPDATE, "UPDATE room_comments SET disable='".$status."' WHERE id='".$id."' Limit 1")->execute();
 }
 
 static function comment_edit($name, $text, $id ){
-	return DB::query(Database::UPDATE, "UPDATE content_comments SET name='".$name."', comment='".$text."' WHERE id='".$id."' Limit 1")->execute();
+	return DB::query(Database::UPDATE, "UPDATE room_comments SET title='".$text."' WHERE id='".$id."' Limit 1")->execute();
 }
 
 	

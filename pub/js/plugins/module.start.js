@@ -127,9 +127,7 @@ T.start = (function(self, $){
 
 	$(document).ready(function(){		
 		binds();
-		self.loadStartPage();
-		
-		
+		self.loadStartPage();		
 	});
 	return self;
 })(T.start || {}, jQuery);
