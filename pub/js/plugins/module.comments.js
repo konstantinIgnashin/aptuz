@@ -1,10 +1,10 @@
-interface.comments = (function(self, $){				  
+T.comments = (function(self, $){				  
 	var _callBack = {
 		c:'#content',
 		comments:function(){
 			$('.edit','tr').click(function(e){				
 				var tr = $(this).parents('tr');
-				$(interface.tmpl("#commentEditTpl",{
+				$(T.tmpl("#commentEditTpl",{
 								 author:$('.author',tr).text(),
 								 text:$('.text',tr).text(),
 								 id:self.getCommentId(this)
@@ -12,7 +12,7 @@ interface.comments = (function(self, $){
 				$('.comment-edit').css({'top':e.pageY});
 				
 				$('.submit').click(function(){					
-					interface.loader.getJSON('/admin/comment_edit/',$('form','.comment-edit').serialize(), function(){						
+					T.loader.getJSON('/admin/comment_edit/',$('form','.comment-edit').serialize(), function(){						
 						$('.author',tr).text($('.author','.comment-edit').val());
 						$('.text',tr).html($('.text','.comment-edit').val());						
 						$('.comment-edit').remove();
@@ -27,13 +27,13 @@ interface.comments = (function(self, $){
 				return false;
 			});
 			$('.accept','tr').click(function(){
-				interface.loader.getJSON('/admin/comments_status/?status=0&id='+self.getCommentId(this), function(){			
+				T.loader.getJSON('/admin/comments_status/?status=0&id='+self.getCommentId(this), function(){			
 					alert("Accepted");
 				});
 				return false;
 			});
 			$('.decline','tr').click(function(){
-				interface.loader.getJSON('/admin/comments_status/?status=1&id='+self.getCommentId(this), function(){			
+				T.loader.getJSON('/admin/comments_status/?status=1&id='+self.getCommentId(this), function(){			
 					alert("Declined");
 				});
 				return false;
@@ -44,8 +44,9 @@ interface.comments = (function(self, $){
 			});	
 			$('.pagination, .s_btn','.summary-log').click(function(){				
 				return self.start(this.name);				
-			});			
-			interface.paging.keyboardBinds(".summary-comments", this.c, self.start);
+			});					
+			T.paging.keyboardBinds(".summary-comments", this.c, self.start);
+			$(".summary-comments", this.c).focus();	
 		}
 		
 	}; 
@@ -61,8 +62,8 @@ interface.comments = (function(self, $){
 		if($('.s_text').val()){
 			add+='&sword=' + $('.s_text').val();
 		}
-		interface.loader.getJSON('/admin/comments/?page='+page+add, function(data){			
-			$('#content').html(interface.tmpl("#indexCommentsTpl",data.success));
+		T.loader.getJSON('/admin/comments/?page='+page+add, function(data){			
+			$('#content').html(T.tmpl("#indexCommentsTpl",data.success));
 			_callBack.comments();
 		});
 		return false;
@@ -70,5 +71,5 @@ interface.comments = (function(self, $){
 	
 	$(document).ready(function(){self.start(0);});		
 	return self;
-})(interface.calc || {}, jQuery);
+})(T.comments || {}, jQuery);
 

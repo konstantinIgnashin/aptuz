@@ -114,7 +114,7 @@
 			<tr>
 				<th>#</th>
 				<th width="70">DATE</th>
-				<th>NAME</th>
+				<th>USER INFO</th>
 				<th>TITLE</th>
 				<th></th>
 				<th></th>
@@ -123,22 +123,22 @@
 			</tr>
 			{{each(i, val) log}}
 				<tr {{if i%2}}class="odd"{{/if}} v="${comment_id}">
-					<td>${comment_id}</td>
+					<td>${id}</td>
 					<td>${comment_date}</td>
-					<td class="author">${comment_author}</td>
-					<td class="text">${comment_text}</td>
+					<td class="author">id:${id}</td>
+					<td class="text">${title}</td>
 					<td><a class="btn_small gray edit" href="#"><span>Edit</span></a></td>
 					<td>
-					{{if is_disable==1}}<a class="btn_small gray accept" href="#"><span>Accept</span></a>
+					{{if disable==1}}<a class="btn_small gray accept" href="#"><span>Accept</span></a>
 					{{else}}<a class="btn_small gray decline" href="#"><span>Decline</span></a>{{/if}}
 					
 					</td>
 					<td><a target="_blank" href="/office-girls-secretaries.html?gID=${gID}">${g_id}</a> ${title}</a></td>		
-					<td>{{if is_disable==1}}<img src="/pub/images/er.png">{{else}}<img src="/pub/images/ok.png">{{/if}}</td>							
+					<td>{{if disable==1}}<img src="/pub/images/er.png">{{else}}<img src="/pub/images/ok.png">{{/if}}</td>							
 				</tr>
 			{{/each}}
 			</table>		
-			<div class="pages-box">{{html interface.paging(logPaging) }}</div>
+			<div class="pages-box">{{html T.paging(logPaging) }}</div>
 		</div>
 	</div>
 </script>

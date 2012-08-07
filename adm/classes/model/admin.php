@@ -207,15 +207,7 @@ public function getComments($offset,$sword,$disable){
 	   if($sword>0){
 	   	$add.=' and c.pid='.$sword;
 	   }
-	   $data = DB::query(Database::SELECT, "
-	    SELECT c.id as comment_id, c.comment as comment_text, c.disable as is_disable, c.name as comment_author,
-				DATE_FORMAT(FROM_UNIXTIME(c.tstamp),'%Y.%m.%d %H:%i' ) AS comment_date, 
-				cnt.title as title, cnt.id as g_id
-	    FROM content cnt, content_comments c  
-		WHERE  cnt.id = c.pid ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();		
-		foreach($data as $k=>$v){
-			$data[$k]['gID'] = base64_encode($v['g_id']);
-		}
+	   $data = DB::query(Database::SELECT, " SELECT *,DATE_FORMAT( FROM_UNIXTIME( tstamp ),'%Y.%m.%d %H:%i' ) AS comment_date FROM room_comments c WHERE  1=1 ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();			
 		return $data;		   
 }
 
@@ -227,7 +219,7 @@ public function getCommentsNS($sword,$disable){
 	   if($sword>0){
 	   	$add.=' and pid='.$sword;
 	   }
-	   return DB::query(Database::SELECT, "SELECT id FROM content_comments WHERE 1=1 ".$add."")->execute()->count();		   
+	   return DB::query(Database::SELECT, "SELECT id FROM room_comments WHERE 1=1 ".$add."")->execute()->count();		   
 }
 
 static function comment_status($status, $id ){

@@ -5,16 +5,22 @@ class Controller_Admin extends Controller {
 	private $session ='';
 	private $GET =array();
 	
-private	function checkSession(){
+private	function checkSession($isAjax=false){
 		$this->config=Kohana::config('config');			
 		$this->loadGETData();
 		$this->session = new Controller_Session();
-	    if(!$this->session->getUserID()>0){ 				
-			header('Location: http://'.$_SERVER['HTTP_HOST'].'/admin/login');
+	  if(!$this->session->getUserID()>0){ 				
+			if($isAjax==false){
+				header('Location: http://'.$_SERVER['HTTP_HOST'].'/admin/login');
+			}
+			else{
+				echo json_encode( array('error'=>'auth'));
+			}			
 			die();	
-        }
+    }
+}
+	
 
-	}
 private function loadGETData(){
 		$this->GET['startStamp'] = $this->getDate(date("d.m.Y 00:00",time()));
 		$this->GET['endStamp']   = $this->getDate(date("d.m.Y 23:59",time()));
@@ -130,7 +136,7 @@ public function action_populary(){
 }
 
 public function action_comments(){			
-		$this->checkSession();
+		$this->checkSession(true);
 		$this->response->body(json_encode( array('success'=>$this->get_comments() ) ));				
 }
 
