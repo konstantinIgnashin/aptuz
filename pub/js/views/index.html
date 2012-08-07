@@ -1,0 +1,183 @@
+<script id="indexTpl" type="text/x-jquery-tmpl">	
+	<div>
+		<div class="msg start">					
+			<p>Вас приветствует админ панель.</p>
+			<p>Выберите необходимые ссылки в левом меню.</p>								
+		</div>
+		<div class="summary-log" tabindex="1">
+			{{tmpl "#indexSummaryLogTpl"}}
+		</div>
+
+		<div class="clear"></div>
+	</div>		
+</script>
+
+<script id="indexSummaryLogTpl" type="text/x-jquery-tmpl">
+	<div>
+	<div class="head">Запросы: ${logPaging.ns}</div>
+	<table>
+	<tr>
+		<th>#</th>
+		<th width="70">DATE</th>
+		<th>QUERY</th>
+		<th>URL</th>
+		<th width="200">IP, COUNTRY</th>							
+	</tr>
+	{{each(i, val) log}}
+		<tr {{if i%2}}class="odd"{{/if}}>
+			<td>${id}</td>
+			<td>${date}</td>
+			<td>${query}</td>
+			<td><a href="${url}" target="_blank">${title}</a> <br />${url}</td>		
+			<td>${ip}, ${country}</td>							
+		</tr>
+	{{/each}}
+	</table>		
+	<div class="pages-box">{{html interface.paging(logPaging) }}</div>
+	</div>
+</script>
+
+<script id="indexPopularyTpl" type="text/x-jquery-tmpl">
+	<div>	
+		<div class="mode-menu">
+			<ul>
+				<li><a href="/admin/log" class="first menu-log">Популярные страницы ::</a></li>
+				<li><a class="on" href="/admin/log_actions">Действия</a></li>
+				<li class=""><a href="/">Ошибки</a></li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+		<div class="mode-content summary-log" style="width:500px;">		
+			<div class="settings"><a class="btn_small gray getlink"><span>Get links</span></a></div>
+			<table>
+				<tr>
+					<th><img src="/pub/images/icons/application_lightning.png" title="get html link" class="get-html-link"></th>
+					<th>#</th>
+					<th>ID</th>
+					<th>TITLE</th>
+					<th>CMNT</th>					
+					<th>COUNT</th>	
+					<th>LINK</th>													
+				</tr>
+			{{each(i, val) log}}
+				<tr {{if i%2}}class="odd"{{/if}} >
+					<td><span class="onoff_box"><input type="checkbox" class="chkbx-pretty" value="${id}"></span></td>
+					<td>${i}</td>
+					<td><a href="http://erofoto.org/${category}?gID=${gID}">${id}</a></td>
+					<td><span class="title" title="${id}">${title}</span></td>					
+					<td>${nsComments} / ${notActiveComments}</td>
+					<td>${count}</td>
+					<td><textarea cols="15" rows="2"><a href="http://erofoto.org/${category}?gID=${gID}" title="${title}">${title}</a></textarea></td>
+											
+				</tr>
+			{{/each}}
+			</table>		
+		</div>	
+		<div class="summary-queries"></div>
+	</div>
+</script>
+
+
+
+<script id="indexPopularyQueriesTpl" type="text/x-jquery-tmpl">
+	<div>
+	<div class="head"><a href="${log[0].url}" target="_blank">${log[0].id}: ${log[0].title}</a></div>
+	<table>
+	<tr>		
+		<th width="70">DATE</th>
+		<th>QUERY, URL</th>		
+		<th width="200">IP, COUNTRY</th>							
+	</tr>
+	{{each(i, val) log}}
+		<tr {{if i%2}}class="odd"{{/if}}>			
+			<td>${date}</td>
+			<td>${query}</td>					
+			<td>${ip}, ${country}</td>							
+		</tr>
+	{{/each}}
+	</table>
+	</div>	
+</script>
+
+<script id="indexCommentsTpl" type="text/x-jquery-tmpl">
+	<div>
+		<div class="summary-comments summary-log" tabindex>
+			<div class="head">Комментарии: ${logPaging.ns}</div>
+			<div class="settings">
+			<a class="btn_small gray s_btn" href="#" name="0" ><span>Search</span></a>
+			<input type="text"  class="s_text" value="${getInfo.sword}">
+			<span class="s_status {{if getInfo.disable==0}}active{{/if}}" name="0" >Accepted</span>
+			<span class="s_status {{if getInfo.disable==1}}active{{/if}}" name="1">Declined</span>
+			<span class="s_status {{if getInfo.disable<0}}active{{/if}}" name="-1">All</span>
+			</div>
+			<table>
+			<tr>
+				<th>#</th>
+				<th width="70">DATE</th>
+				<th>NAME</th>
+				<th>TITLE</th>
+				<th></th>
+				<th></th>
+				<th>GINFO</th>
+				<th>&nbsp;</th>							
+			</tr>
+			{{each(i, val) log}}
+				<tr {{if i%2}}class="odd"{{/if}} v="${comment_id}">
+					<td>${comment_id}</td>
+					<td>${comment_date}</td>
+					<td class="author">${comment_author}</td>
+					<td class="text">${comment_text}</td>
+					<td><a class="btn_small gray edit" href="#"><span>Edit</span></a></td>
+					<td>
+					{{if is_disable==1}}<a class="btn_small gray accept" href="#"><span>Accept</span></a>
+					{{else}}<a class="btn_small gray decline" href="#"><span>Decline</span></a>{{/if}}
+					
+					</td>
+					<td><a target="_blank" href="/office-girls-secretaries.html?gID=${gID}">${g_id}</a> ${title}</a></td>		
+					<td>{{if is_disable==1}}<img src="/pub/images/er.png">{{else}}<img src="/pub/images/ok.png">{{/if}}</td>							
+				</tr>
+			{{/each}}
+			</table>		
+			<div class="pages-box">{{html interface.paging(logPaging) }}</div>
+		</div>
+	</div>
+</script>
+
+<script id="commentEditTpl" type="text/x-jquery-tmpl">
+<div>
+	<div class="comment-edit" >
+	<div class="head">Comment edit: ${id} <a href="#" class="close">X</a></div>	
+	<div class="body">
+	<form>
+	<table>
+		<tr>
+			<td>Name:</td>
+			<td><input name="name" class="author" type="text" size="25" maxlength="256" value="${author}"/></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Text:</td>
+			<td><textarea id="markItUp" name="text" class="text" cols="23" rows="4">${text}</textarea></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input name="id" type="hidden" class="comment-id" value="${id}" /></td>
+			<td><a class="btn_small gray submit" href="#"><span>Submit</span></a></td>
+			<td></td>
+		</tr>
+	</table>
+	</form>
+	</div>
+	</div>	
+</div>
+</script>
+
+<script id="indexGetLinksTpl" type="text/x-jquery-tmpl">
+	<div>
+		<textarea name="text" cols="50" rows="6">
+		{{each(i, val) checked}}<a href="http://erofoto.org/${category}?gID=${gID}" title="${title}">${title}</a>
+		
+		{{/each}}
+		</textarea>
+	</div>
+</script>

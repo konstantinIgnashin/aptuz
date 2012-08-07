@@ -1,0 +1,47 @@
+<script id="wikiTpl" type="text/x-jquery-tmpl">	
+	<div>				
+		<div class="summary-wiki">
+			<div class="classes-box">
+			<div class="head-box">Классы приложения</div>
+			<table>
+				<tr>
+					<th>Класс</th>
+					<th>Описание</th>
+				</tr>
+				{{each(i, val) classes}}
+					<tr {{if i%2}}class="odd"{{/if}}>				
+						<td><a class="get-propetries" href="#" name="${id}">${title}</a></td>	
+						<td>${description} <a class="getfile" href="#${filepath}" name="${filepath}">view</a></td>						
+					</tr>
+				{{/each}}
+			</table>
+			</div>
+			<div class="propetries-box"></div>
+			<class="clear"></div>
+		</div>
+	</div>		
+</script>
+
+<script id="wikiGetPropetriesTpl" type="text/x-jquery-tmpl">	
+	<div>
+		<div class="head-box">Классы приложения</div>
+		<table>
+			{{each(i, val) propetries}}
+				<tr {{if i%2}}class="odd"{{/if}}>				
+					<td><a class="" href="#" name="${id}">${title}</a> - ${description}.</td>												
+				</tr>
+			{{/each}}
+		</table>
+	</div>		
+</script>
+
+<script id="wikiPopupTpl" type="text/x-jquery-tmpl">	
+	<div>
+		<div class="head-box">Исходный код file://{{html t}}</div>
+		<div class="wiki-popup">		
+			<div class="body">{{html d}}</div>
+		</div>
+	</div>		
+</script>
+
+

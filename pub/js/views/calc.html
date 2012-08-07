@@ -1,0 +1,50 @@
+<script id="calcTpl" type="text/x-jquery-tmpl">	
+	<div>				
+		<div class="summary-log summary-calc" tabindex>
+			<div class="classes-box">
+			<div class="head-box">Калькулятор риска сделок</div>
+			<table>
+				<tr>
+					<th>Котировка</th>
+					<th>Плечо</th>
+					<th>Пункты</th>
+					<th>Проценты</th>
+					<th>Депозит</th>
+					<th>Лоты</th>
+				</tr>				
+				<tr class="inpt">				
+					<td><input size="7" name="ask" value="${ask}" id="calc-price"></td>	
+					<td>
+					<select name="leverage" class="calc-leverage">
+						<option value="500">1 : 500</option>
+						<option value="200" selected="selected">1 : 200</option>
+						<option value="100">1 : 100</option>
+					</select></td>	
+					<td><input name="points"   type="text"  value="20" size="7" id="calc-points"/></td>	
+					<td><input name="percents" type="text"  value="4" size="7"  id="calc-percents"/></td>	
+					<td><input name="deposit"  type="text"  value="200" size="7" id="calc-deposit" /></td>	
+					<td><a href="#" class="calc-apply">Рассчитать</a></td>			
+				</tr>
+				<tr>
+					<th>1 Лот</th>
+					<th>1 Пункт</th>
+					<th>1 Процент</th>
+					<th>Риск $</th>
+					<th>Риск лотов</th>
+					<th>Залог</th>
+				</tr>	
+				<tr class="res">
+					<td><span class="res-lot"></span></td>
+					<td><span class="res-point">10$</span></td>
+					<td><span class="res-percent"></span></td>
+					<td><span class="res-percents"></span></td>
+					<td><span class="res-risklots"></span></td>
+					<td><span class="res-margin"></span></td>
+				</tr>			
+			</table>
+			</div>
+			<div class="propetries-box"></div>
+			<class="clear"></div>
+		</div>
+	</div>		
+</script>
