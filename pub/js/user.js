@@ -1,4 +1,4 @@
-interface.user = (function(self, $){
+T.user = (function(self, $){
 	 self.settings = {
 		 lang:'en',
 		 location:'index',
@@ -7,8 +7,8 @@ interface.user = (function(self, $){
 	 self.lang = {};
 	 self.user = {};
 	 _construct = function(){		
-	 	interface.loadScript('/pub/js/lang/'+ self.settings.lang + '.js');		
+	 	T.loadScript('/pub/js/lang/'+ self.settings.lang + '.js');		
 	 }	
 	_construct();	
 	return self;
-})(interface.user || {}, jQuery);
+})(T.user || {}, jQuery);

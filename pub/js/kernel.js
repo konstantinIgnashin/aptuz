@@ -1,5 +1,5 @@
 
-var interface = (function(self, $){		
+var T = (function(self, $){		
 	_modules = {};
 	_scripts = ['/pub/js/jquery/tmpl.pack.js',	'/pub/js/jquery/modalbox.js', '/pub/js/jquery/mousewheel.js', '/pub/js/plugins/paging.js',				
 				'/pub/js/user.js',
@@ -45,11 +45,61 @@ var interface = (function(self, $){
 			_modules[name] = 1;
 		}
 		else{			
-			interface[name].start();	
+			T[name].start();	
 		}		
 	}	
 	self.loadAPP(_scripts, _css, _tpl);
 	return self;
-})(interface || {}, jQuery);
+})(T || {}, jQuery);
 
-
+/*kernel modules*/
+	// template wrapper
+	T.tmpl = function(el, data){
+		return $(el).tmpl(data).html();
+	}
+	// modal popup window
+	T.dialog = function(content, callback){
+		$('.body', '#modalbox').html(content);
+		$('#modalbox').reveal({revealId:'modalbox'});
+		if($.isFunction(callback)){
+			callback();
+		}
+	}
+	// transport for json queries
+	T.loader = {
+		el:'.app-loader',
+		show:function(){
+			$(this.el).addClass('show');
+		},
+		hide:function(){
+			$(this.el).removeClass('show');
+		},
+		getJSON:function (url , data, callback){		
+			T.loader.show();
+			if($.isFunction(data)){
+				callback = data;
+				data = undefined;
+			}					
+			return $.ajax({
+					'url':  url, 
+					'type': 'GET',
+					'dataType': 'JSON',	
+					data: data,
+					success: function (data) {
+						if(data.debug){
+							$.each(data.debug, function(i,val){
+								//$('<div class="debug"><strong>'+ i +'</strong><br />'+ val +'</div>').appendTo('body');
+								console.log(i + ' = ', val);
+							});						
+						}
+						if($.isFunction(callback)){
+							callback(data);	
+						}
+						T.loader.hide();
+					},
+					error:function (xhr, ajaxOptions, thrownError){
+						//alert(ajaxOptions.url + "\n" + thrownError );               		
+				   }			
+			});			
+		}
+	};

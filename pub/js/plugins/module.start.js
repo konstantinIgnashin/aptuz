@@ -1,54 +1,7 @@
-interface.tmpl = function(el, data){
-	return $(el).tmpl(data).html();
-}
 
-interface.dialog = function(content, callback){
-	$('.body', '#modalbox').html(content);
-	$('#modalbox').reveal({revealId:'modalbox'});
-	if($.isFunction(callback)){
-		callback();
-	}
-}
-interface.loader = {
-	el:'.app-loader',
-	show:function(){
-		$(this.el).addClass('show');
-	},
-	hide:function(){
-		$(this.el).removeClass('show');
-	},
-	getJSON:function (url , data, callback){		
-		interface.loader.show();
-		if($.isFunction(data)){
-			callback = data;
-			data = undefined;
-		}					
-		return $.ajax({
-				'url':  url, 
-				'type': 'GET',
-				'dataType': 'JSON',	
-				data: data,
-				success: function (data, textStatus) {
-					if(data.debug){
-						$.each(data.debug, function(i,val){
-							//$('<div class="debug"><strong>'+ i +'</strong><br />'+ val +'</div>').appendTo('body');
-							console.log(i + ' = ', val);
-						});						
-					} 
-					if($.isFunction(callback)){
-						callback(data, textStatus);	
-					}
-					interface.loader.hide();
-				},
-				error:function (xhr, ajaxOptions, thrownError){
-					//alert(ajaxOptions.url + "\n" + thrownError );               		
-			   }			
-		});			
-	}
 
-};
 
-interface.start = (function(self, $){
+T.start = (function(self, $){
 	var _popularyData;
 	var _callBack = {
 		c:'#content',
@@ -56,13 +9,13 @@ interface.start = (function(self, $){
 			$('.pagination','.summary-log').click(function(){				
 				return self.loadLogs(this.name);				
 			});			
-			interface.paging.keyboardBinds(".summary-log", this.c, self.loadLogs);
+			T.paging.keyboardBinds(".summary-log", this.c, self.loadLogs);
 		},
 		summaryErrors:function(){
 			$('.pagination','.summary-errors').click(function(){		
 				return self.loadErrors(this.name);				
 			});			
-			interface.paging.keyboardBinds(".summary-errors", this.c, self.loadErrors);
+			T.paging.keyboardBinds(".summary-errors", this.c, self.loadErrors);
 		},
 		populary:function(){
 			$('.title','.summary-log').click(function(){		
@@ -85,7 +38,7 @@ interface.start = (function(self, $){
 						checked[checkbox.val()]=self.findKeyData(self._popularyData.log,'id',checkbox.val());
 					}
 				});				
-				interface.dialog(interface.tmpl("#indexGetLinksTpl",{checked:checked}));
+				T.dialog(interface.tmpl("#indexGetLinksTpl",{checked:checked}));
 				return false;
 			});
 		}
@@ -102,24 +55,31 @@ interface.start = (function(self, $){
 			}
 		},
 		loadLogs:function(page){
-			interface.loader.getJSON('/admin/summary_logs/?page='+page, function(data){				
-				$(".summary-log",'#content').html(interface.tmpl("#indexSummaryLogTpl",data.success));
+			T.loader.getJSON('/admin/summary_logs/?page='+page, function(data){				
+				$(".summary-log",'#content').html(T.tmpl("#indexSummaryLogTpl",data.success));
 				_callBack.summaryLog();
 			});
 			return false;
 		},
 		loadPageQueries:function(page,text){
-			interface.loader.getJSON('/admin/populary/?page='+page, function(data){
+			T.loader.getJSON('/admin/populary/?page='+page, function(data){
 				self._popularyData = data.success;															 
-				$(".summary-queries",'#content').html(interface.tmpl("#indexPopularyQueriesTpl",data.success));					
+				$(".summary-queries",'#content').html(T.tmpl("#indexPopularyQueriesTpl",data.success));					
 			});
 		},
 		loadStartPage:function(){
-			interface.loader.getJSON('/admin/summary/?page=0', function(data){				
+			if(window.location.hash){
+				$('.'+window.location.hash.toString().replace('\#','')).click();				
+			}
+			else{				
+				$('a.item:first','#left-menu').click();
+			}
+			/*
+			T.loader.getJSON('/admin/summary/?page=0', function(data){				
 				$("#content").html($( "#indexTpl").tmpl(data.success).html());
 				_callBack.summaryLog();
 				_callBack.summaryErrors();				
-			});	
+			});	*/
 		}
 
 		
@@ -132,7 +92,7 @@ interface.start = (function(self, $){
 		}
 		$('.menu-summary').click(function(){
 			highlightMenu(this);
-			interface.loader.getJSON(this.href, function(data){				
+			T.loader.getJSON(this.href, function(data){				
 				$("#content").html($( "#commentsTableTpl").tmpl(data.success).html());
 				_callBack.summaryLog();
 				_callBack.summaryErrors();
@@ -142,23 +102,23 @@ interface.start = (function(self, $){
 		
 		$('#menu-populary').click(function(){
 			highlightMenu(this);			
-			interface.loader.getJSON(this.href, function(data){		
+			T.loader.getJSON(this.href, function(data){		
 				self._popularyData = data.success;	
 				$("#content").html($("#indexPopularyTpl").tmpl(data.success).html());
 				_callBack.populary();
 			});
-			//interface.loadModule('logs',{'scripts':['/pub/js/plugins/module.logs.js'],'tpls':['/pub/js/views/logs.html']});
+			//T.loadModule('logs',{'scripts':['/pub/js/plugins/module.logs.js'],'tpls':['/pub/js/views/logs.html']});
 			return false;
 		});
 		$('#menu-comments').click(function(){
 			highlightMenu(this);			
 			//self.loadComments(0);			
-			interface.loadModule('comments',{'scripts':['/pub/js/plugins/module.comments.js']});
+			T.loadModule('comments',{'scripts':['/pub/js/plugins/module.comments.js']});
 			return false;
 		});/*
 		$('.menu-calc').click(function(){
 			highlightMenu(this);			
-			interface.loadModule('calc',{'scripts':['/pub/js/plugins/module.calc.js'],'tpls':['/pub/js/views/calc.html']});
+			T.loadModule('calc',{'scripts':['/pub/js/plugins/module.calc.js'],'tpls':['/pub/js/views/calc.html']});
 			return false;
 		});
 		*/
@@ -166,10 +126,12 @@ interface.start = (function(self, $){
 	}
 
 	$(document).ready(function(){		
-		self.loadStartPage();
 		binds();
+		self.loadStartPage();
+		
+		
 	});
 	return self;
-})(interface.start || {}, jQuery);
+})(T.start || {}, jQuery);
 
 

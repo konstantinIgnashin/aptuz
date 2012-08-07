@@ -1,2 +1,2 @@
 
-interface.user.lang =  {'insert' : 'Вставить', 'update': 'Применить', 'cancel' : 'Отменить','first':'Первая','prev':'Предыдущая'};
+T.user.lang =  {'insert' : 'Вставить', 'update': 'Применить', 'cancel' : 'Отменить','first':'Первая','prev':'Предыдущая'};

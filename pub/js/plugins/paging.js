@@ -1,9 +1,9 @@
-interface.paging = function(data){	
+T.paging = function(data){	
 	if(data.ns <= data.onPage) return '';
 	var onPage = data.onPage>0 ? data.onPage : 1; // количество записей на одной странице
 	var activePage = data.activePage>0 ? Number(data.activePage) : 0;
 	var pages=Math.ceil(data.ns/onPage); // общее количество страниц
-	var L = interface.user.lang;
+	var L = T.user.lang;
 	function findStartLink(activePage){			
 		for(var i=activePage; i>(activePage-12); i--){
 			if((RegExp('0$')).test(i)){
@@ -37,7 +37,7 @@ interface.paging = function(data){
 	return this.tag(p);		
 };
 
-interface.paging.keyboardBinds = function(el, c, f){
+T.paging.keyboardBinds = function(el, c, f){
 	$(el, c).focus(function(){				
 		$(this).unbind('keypress').keypress(function(e){						
 			var page =  parseInt($('.pages-box span',this).text());

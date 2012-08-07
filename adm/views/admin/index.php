@@ -37,9 +37,9 @@
 	<div id="body-area">
 		<div id="left-menu" class="fs-content-box new">					
 			<ul class="fs-side-menu">			
-				<!--<li><a id="menu-summary"  class="menu-summary on" href="/admin/summary">Статистика запросов</a></li>
-				<li><a id="menu-populary" class="menu-populary" href="/admin/populary">Популярные страницы</a></li>-->
-				<li><a id="menu-comments" class="menu-comments" href="/admin/comments">Комментарии</a></li>
+				<li><a id="menu-comments" class="item menu-comments" href="/admin/comments">Комментарии</a></li>
+				<li><a id="menu-summary"  class="menu-summary on" href="/admin/summary">Статистика запросов</a></li>
+				<li><a id="menu-populary" class="menu-populary" href="/admin/populary">Популярные страницы</a></li>				
 				<!--<li><a id="menu-calc"    class="menu-calc"   href="/admin/calculator">Калькулятор</a></li>				
 				<li><a id="menu-history" class="menu-history" href="/admin/log">История сделок</a></li>
 				<li><a id="menu-config"  class="menu-config"  href="/admin/log">Конфигурация робота</a></li>-->

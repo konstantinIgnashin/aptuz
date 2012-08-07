@@ -1,4 +1,4 @@
-interface.user.lang =  {
+T.user.lang =  {
 	'insert' : 'Insert', 
 	'update': 'Apply', 
 	'cancel' : 'Cancel',
