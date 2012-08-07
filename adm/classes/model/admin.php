@@ -205,11 +205,12 @@ public function getComments($offset,$sword,$disable){
 	   	$add.=' and c.disable='.$disable;
 	   }
 	   if($sword>0){
-	   	$add.=' and c.pid='.$sword;
+	   	$add.=' and c.id='.$sword;
 	   }
-	   $data = DB::query(Database::SELECT, " SELECT *, DATE_FORMAT( FROM_UNIXTIME( tstamp ),'%Y.%m.%d %H:%i' ) AS comment_date, id as comment_id, title as comment_title
-	   
-	    FROM room_comments c WHERE  1=1 ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();			
+	   $data = DB::query(Database::SELECT, " SELECT *, 
+	   DATE_FORMAT( FROM_UNIXTIME( c.tstamp ),'%Y.%m.%d %H:%i' ) AS comment_date, c.id as comment_id, c.title as comment_title, 
+	   			p.title as news_title, p.id as news_id
+	    FROM base p, room_comments c WHERE  p.id=c.content_id and c.place_id=1 ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();			
 		return $data;		   
 }
 
@@ -219,7 +220,7 @@ public function getCommentsNS($sword,$disable){
 	   		$add=' and disable='.$disable;
 	   }
 	   if($sword>0){
-	   	$add.=' and pid='.$sword;
+	   	$add.=' and id='.$sword;
 	   }
 	   return DB::query(Database::SELECT, "SELECT id FROM room_comments WHERE 1=1 ".$add."")->execute()->count();		   
 }
