@@ -52,8 +52,22 @@ class Controller_Session extends Controller
             }
         }
         
-        session_set_cookie_params($this->session_lifespan);
-        session_start();
+        $domain = 'trader.uz';
+		if(preg_match('/t\.uz/i',$_SERVER['HTTP_HOST'],$a)){
+			$domain = 't.uz';
+		}
+		ini_set('session.cookie_domain', '.'.$domain);
+		if(!isset($_REQUEST[session_name()])){
+			session_start(); 
+			setcookie('PHPSESSID', session_id(), 0, '/', '.'.$domain); 
+		}
+		else{
+			session_start(); 
+		}
+		
+		
+		//session_set_cookie_params($this->session_lifespan);        
+		//session_start();
         
     }
 
