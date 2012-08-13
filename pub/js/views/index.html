@@ -133,7 +133,7 @@
 					{{else}}<a class="btn_small gray decline" href="#"><span>Decline</span></a>{{/if}}
 					
 					</td>
-					<td><a target="_blank" href="/office-girls-secretaries.html?gID=${gID}">${content_id}</a> ${news_title}</a></td>		
+					<td><a target="_blank" href="${place_domain}/{{html T.comments.parseUrl(content_id,place_url) }}">${content_id}</a> ${news_title}</a></td>		
 					<td class="status">{{if disable==1}}<img src="/pub/images/er.png">{{else}}<img src="/pub/images/ok.png">{{/if}}</td>							
 				</tr>
 			{{/each}}
@@ -172,12 +172,37 @@
 </div>
 </script>
 
-<script id="indexGetLinksTpl" type="text/x-jquery-tmpl">
+<script id="indexCalendarStatTpl" type="text/x-jquery-tmpl">
 	<div>
-		<textarea name="text" cols="50" rows="6">
-		{{each(i, val) checked}}<a href="http://erofoto.org/${category}?gID=${gID}" title="${title}">${title}</a>
-		
-		{{/each}}
-		</textarea>
+		<div class="summary-comments summary-log" tabindex>
+			<div class="head">Всего подключений: ${logPaging.ns}</div>			
+			<div class="settings">
+				<a class="btn_small gray s_btn" href="#" name="0" ><span>Search</span></a>
+				<input type="text"  class="s_text" value="${getInfo.ip}">
+			</div>
+			<table width="800">
+			<tr>
+				<th>#</th>
+				<th>Create Date</th>
+				<th>Last Date</th>
+				<th>Currency</th>
+				<th>Ip</th>
+				<th>Queries</th>
+				<th>Unique</th>							
+			</tr>
+			{{each(i, val) log}}
+				<tr {{if i%2}}class="odd"{{/if}} v="${id}">
+					<td>${id}</td>
+					<td>${create_date}</td>					
+					<td>${last_update}</td>
+					<td>${currency}</td>
+					<td>${ipaddress}</td>
+					<td align="right">${connections}</td>
+					<td align="right">${unique_ip}</td>							
+				</tr>
+			{{/each}}
+			</table>		
+			<div class="pages-box">{{html T.paging(logPaging) }}</div>
+		</div>		
 	</div>
 </script>

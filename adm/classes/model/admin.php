@@ -209,8 +209,9 @@ public function getComments($offset,$sword,$disable){
 	   }
 	   $data = DB::query(Database::SELECT, " SELECT *, 
 	   DATE_FORMAT( FROM_UNIXTIME( c.tstamp ),'%Y.%m.%d %H:%i' ) AS comment_date, c.id as comment_id, c.title as comment_title, 
-	   			p.title as news_title, p.id as news_id
-	    FROM base p, room_comments c WHERE  p.id=c.content_id and c.place_id=1 ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();			
+	   			p.title as news_title, p.id as news_id,
+	   			place.domain as place_domain, place.url as place_url
+	    FROM base p, room_comments c, room_comments_places place WHERE  p.id=c.content_id and place.id=c.place_id ".$add." ORDER BY c.id DESC Limit ".$offset.', 20')->execute()->as_array();			
 		return $data;		   
 }
 
@@ -231,6 +232,28 @@ static function comment_status($status, $id ){
 
 static function comment_edit($name, $text, $id ){
 	return DB::query(Database::UPDATE, "UPDATE room_comments SET title='".$text."' WHERE id='".$id."' Limit 1")->execute();
+}
+
+static function getCalendarStat($offset,$ip=''){	
+	 $add='';
+	 if($ip!=''){
+	   	$add=" and ipaddress='".$ip."'";
+	 }
+	 $data = DB::query(Database::SELECT, " SELECT *, 
+	   DATE_FORMAT( FROM_UNIXTIME( crdate ),'%Y.%m.%d %H:%i' ) AS create_date,
+	   DATE_FORMAT( FROM_UNIXTIME( last_update ),'%Y.%m.%d %H:%i' ) AS last_update
+	   FROM trader_services_userlog
+	   WHERE 1=1 ".$add."
+	   ORDER BY id DESC Limit ".$offset.', 20')->execute()->as_array();			
+		return $data;			
+}
+
+public function getCalendarStatNS($ip){
+		 $add='';
+		 if($ip!=''){
+		   	$add=" and ipaddress='".$ip."'";
+		 }
+	   return DB::query(Database::SELECT, "SELECT id FROM trader_services_userlog WHERE 1=1 ".$add)->execute()->count();		   
 }
 
 	

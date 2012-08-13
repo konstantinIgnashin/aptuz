@@ -140,6 +140,15 @@ public function action_comments(){
 		$this->response->body(json_encode( array('success'=>$this->get_comments() ) ));				
 }
 
+public function action_calendar_stat(){			
+		$this->checkSession(true);
+		$model = new Model_Admin();	
+		$ip= @$_GET['ip'];
+		$page = $this->getIntGET('page');
+		$logPaging = array('onPage'=>20,'ns'=>$model->getCalendarStatNS($ip),'activePage'=>$page);
+		$this->response->body(json_encode( array('success'=>array('log'=>$model->getCalendarStat(20*$page,$ip),'logPaging'=>$logPaging, 'getInfo'=>array('ip'=>$ip) ) ) ));				
+}
+
 public function get_comments(){			
 		$sword='';
 		$disable=-1;	

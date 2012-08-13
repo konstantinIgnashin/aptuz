@@ -73,17 +73,13 @@ T.start = (function(self, $){
 			}
 			else{				
 				$('a.item:first','#left-menu').click();
-			}
-			/*
-			T.loader.getJSON('/admin/summary/?page=0', function(data){				
-				$("#content").html($( "#indexTpl").tmpl(data.success).html());
-				_callBack.summaryLog();
-				_callBack.summaryErrors();				
-			});	*/
+			}			
 		}
 
 		
 	}
+	
+	
 	
 	var binds = function (){
 		var highlightMenu = function(my){
@@ -111,17 +107,16 @@ T.start = (function(self, $){
 			return false;
 		});
 		$('#menu-comments').click(function(){
-			highlightMenu(this);			
-			//self.loadComments(0);			
+			highlightMenu(this);				
 			T.loadModule('comments',{'scripts':['/pub/js/plugins/module.comments.js']});
 			return false;
-		});/*
-		$('.menu-calc').click(function(){
+		});
+		$('#menu-calendar-stat').click(function(){
 			highlightMenu(this);			
-			T.loadModule('calc',{'scripts':['/pub/js/plugins/module.calc.js'],'tpls':['/pub/js/views/calc.html']});
+			T.calendarStat.start(0);
 			return false;
 		});
-		*/
+		
 		
 	}
 

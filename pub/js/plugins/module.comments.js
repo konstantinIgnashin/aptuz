@@ -56,6 +56,10 @@ T.comments = (function(self, $){
 		return $(el).parents('tr').attr('v');
 	}
 	
+	self.parseUrl = function(id,url){
+		return url.replace('{id}',id);
+	}
+	
 	self.start = function(page){
 		var add='';
 		if($('.active','.settings').attr('name')){
@@ -74,4 +78,34 @@ T.comments = (function(self, $){
 	$(document).ready(function(){self.start(0);});		
 	return self;
 })(T.comments || {}, jQuery);
+
+/* Module Calendar Statistic*/
+
+T.calendarStat = (function(self, $){	
+	var _callBack = {
+		c:'#content',
+		stat:function(data){
+			$('#content').html(T.tmpl("#indexCalendarStatTpl",data.success));
+			$('.pagination, .s_btn','.summary-log').click(function(){				
+				return self.start(this.name);				
+			});	
+			T.paging.keyboardBinds(".summary-comments", this.c, self.start);
+			$(".summary-comments", this.c).focus();	
+		}
+	}
+	
+	self.start = function(page){
+		var add='';
+		$('.s_text').val()?add+='&ip=' + $('.s_text').val():'';		
+		T.loader.getJSON('/admin/calendar_stat/?page='+page+add,_callBack.stat);
+		return false;
+	};
+	$(document).ready(function(){
+		$('#menu-calendar-stat').click(function(){
+			return self.start(0);						   
+		});
+		
+	});	
+	return self;					   
+})(T.calendarStat || {}, jQuery);
 
