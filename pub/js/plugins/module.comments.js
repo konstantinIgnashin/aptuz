@@ -96,7 +96,8 @@ T.calendarStat = (function(self, $){
 	
 	self.start = function(page){
 		var add='';
-		$('.s_text').val()?add+='&ip=' + $('.s_text').val():'';		
+		$('.s_text').val()?add+='&ip=' + $('.s_text').val():'';	
+		$('.s_order').val()?add+='&orderby=' + $('.s_order').val():'';	
 		T.loader.getJSON('/admin/calendar_stat/?page='+page+add,_callBack.stat);
 		return false;
 	};

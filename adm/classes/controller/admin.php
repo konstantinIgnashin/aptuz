@@ -144,9 +144,10 @@ public function action_calendar_stat(){
 		$this->checkSession(true);
 		$model = new Model_Admin();	
 		$ip= @$_GET['ip'];
+		$orderby = @$_GET['orderby'];
 		$page = $this->getIntGET('page');
 		$logPaging = array('onPage'=>20,'ns'=>$model->getCalendarStatNS($ip),'activePage'=>$page);
-		$this->response->body(json_encode( array('success'=>array('log'=>$model->getCalendarStat(20*$page,$ip),'logPaging'=>$logPaging, 'getInfo'=>array('ip'=>$ip) ) ) ));				
+		$this->response->body(json_encode( array('success'=>array('log'=>$model->getCalendarStat(20*$page,$ip,$orderby),'logPaging'=>$logPaging, 'getInfo'=>array('ip'=>$ip,'orderby'=>$orderby) ) ) ));				
 }
 
 public function get_comments(){			

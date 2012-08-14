@@ -177,8 +177,19 @@
 		<div class="summary-comments summary-log" tabindex>
 			<div class="head">Всего подключений: ${logPaging.ns}</div>			
 			<div class="settings">
+				
 				<a class="btn_small gray s_btn" href="#" name="0" ><span>Search</span></a>
 				<input type="text"  class="s_text" value="${getInfo.ip}">
+				<select class="s_order">
+					<option value="id"      {{if getInfo.orderby=='id'}} selected="selected"{{/if}} >id</option>
+					<option value="crdate"  {{if getInfo.orderby=='crdate'}} selected="selected"{{/if}} >crdate</option>
+					<option value="last_update"  {{if getInfo.orderby=='last_update'}} selected="selected"{{/if}} >last_update</option>
+					<option value="ipaddress"    {{if getInfo.orderby=='ipaddress'}} selected="selected"{{/if}} >ipaddress</option>
+					<option value="currency"     {{if getInfo.orderby=='currency'}} selected="selected"{{/if}} >currency</option>
+					<option value="connections"  {{if getInfo.orderby=='connections'}}selected="selected"{{/if}} >connections</option>
+					<option value="unique_ip"    {{if getInfo.orderby=='unique_ip'}} selected="selected"{{/if}} >unique_ip</option>
+				</select>
+
 			</div>
 			<table width="800">
 			<tr>

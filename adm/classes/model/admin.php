@@ -234,24 +234,38 @@ static function comment_edit($name, $text, $id ){
 	return DB::query(Database::UPDATE, "UPDATE room_comments SET title='".$text."' WHERE id='".$id."' Limit 1")->execute();
 }
 
-static function getCalendarStat($offset,$ip=''){	
+static function getCalendarStat($offset,$ip='',$orderby=''){	
 	 $add='';
 	 if($ip!=''){
+	   if(preg_match('/^[a-z]/i',$ip)){
+	   	$add=" and currency LIKE '%".$ip."%'";
+	   }
+	   else{
 	   	$add=" and ipaddress='".$ip."'";
+	   }
+	 }
+   $order = 'id';
+	 if($orderby!=''){
+	   	$order=$orderby;
 	 }
 	 $data = DB::query(Database::SELECT, " SELECT *, 
 	   DATE_FORMAT( FROM_UNIXTIME( crdate ),'%Y.%m.%d %H:%i' ) AS create_date,
 	   DATE_FORMAT( FROM_UNIXTIME( last_update ),'%Y.%m.%d %H:%i' ) AS last_update
 	   FROM trader_services_userlog
 	   WHERE 1=1 ".$add."
-	   ORDER BY id DESC Limit ".$offset.', 20')->execute()->as_array();			
+	   ORDER BY ".$order." DESC Limit ".$offset.', 20')->execute()->as_array();			
 		return $data;			
 }
 
 public function getCalendarStatNS($ip){
-		 $add='';
-		 if($ip!=''){
+		 	$add='';
+			if($ip!=''){
+		   if(preg_match('/^[a-z]/i',$ip)){
+		   	$add=" and currency LIKE '%".$ip."%'";
+		   }
+		   else{
 		   	$add=" and ipaddress='".$ip."'";
+		   }
 		 }
 	   return DB::query(Database::SELECT, "SELECT id FROM trader_services_userlog WHERE 1=1 ".$add)->execute()->count();		   
 }
