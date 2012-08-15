@@ -150,6 +150,12 @@ Route::set('admin', '(<controller>(/<action>))')
         'action'     => 'index',
     ));
 	
+Route::set('import_quotes', '(<controller>(/<action>))')
+     ->defaults(array(
+        'controller' => 'import_quotes',
+        'action'     => 'index',
+    ));
+	
 Route::set('wiki', '(<controller>(/<action>))')
      ->defaults(array(
         'controller' => 'wiki',
