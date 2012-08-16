@@ -116,6 +116,11 @@ T.start = (function(self, $){
 			T.calendarStat.start(0);
 			return false;
 		});
+		$('#menu-recomendations').click(function(){
+			highlightMenu(this);			
+			T.loadModule('recomendations',{'scripts':['/pub/js/plugins/module.recomendations.js'],'tpls':['/pub/js/views/recomendations.html']});			
+			return false;
+		});
 		
 		
 	}
