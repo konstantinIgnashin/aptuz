@@ -9,6 +9,21 @@
 <script id="recMainTpl" type="text/x-jquery-tmpl">	
 <div>
 		<div class="head">Последняя активность</div>
+		{{each(i, val) currencies}}
+			<div class="rec-box">
+				<div class="head">${i}: </div>
+				<div class="body">
+					<div class="body-left">
+						{{each(i2, val2) val}}
+							<div class="status">${val2.date}</div>
+						{{/each}}
+					</div>
+					<div class="body-right"></div>
+				</div>
+			</div>
+		{{/each}}
+		
+		
 		<table>
 		<tr>
 			<th>#</th>

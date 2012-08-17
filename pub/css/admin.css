@@ -166,3 +166,15 @@ text-transform:uppercase;}
 
 .mode-content .settings{height:36px; border:1px solid #ccc;border-bottom:none; background:#fbfbfb;}
 .mode-content .settings .getlink {float:right;margin:5px;}
+
+
+/*recomendations*/
+
+.rec-box {float:left; border:1px solid #ccc; width:160px; margin:5px;border-radius:2px 2px 0 0;background:#f7f7f7;}
+.rec-box .head {padding:3px; background:#e3e3e3; text-shadow:1px 1px 1px #fff;}
+.rec-box .body {padding:0;}
+.rec-box .body .body-left {float:left; border-right:solid 1px #ccc;}
+.rec-box .body .body-left .status {padding-bottom:3px; border-bottom:1px solid #ccc;padding-right:3px;}
+.rec-box .body .body-left :last-child {border-bottom:none;}
+.rec-box .body .body-left :first-child {}
+.rec-box .body .body-right {float:right;}
