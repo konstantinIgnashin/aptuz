@@ -14,7 +14,11 @@ T.recomendations = (function(self, $){
 			_callBack.recomendations();
 		});
 		return false;
-	};	
+	};
+	
+	self.cutNulls = function(quote){		
+		return ("" + quote).replace(/0$/,'');		
+	}
 	
 	$(document).ready(function(){self.start(0);});		
 	return self;

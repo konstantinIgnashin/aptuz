@@ -11,29 +11,41 @@
 		<div class="head">Последняя активность</div>
 		{{each(i, val) currencies}}
 			<div class="rec-box">
-				<div class="head">${i}: </div>
+				<div class="head">${i}: <span>${currencies[i][0].date}</span></div>
 				<div class="body">
 					<div class="body-left">
 						{{each(i2, val2) val}}
-							<div class="status">${val2.date}</div>
+							<div class="status ${val2.direct}">${val2.date}</div>
 						{{/each}}
 					</div>
-					<div class="body-right"></div>
+					<div class="body-right">
+					<table  cellspacing="0" cellpadding="0" border="0" class="t">
+						<tr title="Open price">
+							<td>Opn:</td>
+							<td>{{html T.recomendations.cutNulls(currencies[i][0].open) }}</td>
+						</tr>
+						<tr title="Close price">
+							<td>Clse:</td>
+							<td>{{html T.recomendations.cutNulls(currencies[i][1].close) }}</td>
+						</tr>
+						<tr title="Spread">
+							<td>Sprd:</td>
+							<td>${spread[i]}</td>
+						</tr>
+						<tr title="Gap value">
+							<td>Gap:</td>
+							<td>${(currencies[i][0].open - currencies[i][1].close).toString().substr(0,7)} </td>
+						</tr>
+						<tr title="Last">
+							<td>O-C:</td>
+							<td>${(currencies[i][0].open - currencies[i][0].close).toString().substr(0,7)}</td>
+						</tr>
+					</table>
+					
+					</div>
 				</div>
 			</div>
 		{{/each}}
-		
-		
-		<table>
-		<tr>
-			<th>#</th>
-			<th>Номер</th>
-			<th>Дата</th>
-			<th>Действие</th>				
-		</tr>		
-		</table>		
-		
-
 </div>
 
 </script>
