@@ -1,0 +1,62 @@
+<script id="alllistsTpl" type="text/x-jquery-tmpl">	
+	<div>				
+		<div class="tab-box">
+			<ul>
+				<li><a href="/alllists/room">Юзеры</a></li>
+				<li><a href="/alllists/downloads">Скачано</a></li>
+				<li><a href="/alllists/buys">Api</a></li>
+			</ul>
+		</div>
+		<div class="summary-log tab-body"></div>
+	</div>		
+</script>
+
+<script id="roomUsersTpl" type="text/x-jquery-tmpl">	
+<div>
+		<div class="head">Зарегистрированые юзеры trader-room</div>
+		<table>
+		<tr>
+			<th>#</th>
+			<th>Email</th>
+			<th>Name</th>
+			<th>Url</th>
+			<th>An/Tr</th>
+			<th>Phone</th>
+			<th>Register</th>
+			<th>Last login</th>
+			<th>Actions</th>				
+		</tr>
+		{{each(i, val) log}}
+			<tr {{if i%2}}class="odd"{{/if}} >
+				<td>${id}</td>
+				<td>${email}</td>
+				<td>${first_name}, ${last_name}</td>
+				<td>${url}</td>
+				<td>${analitik}/${trader}</td>
+				<td>${phone}</td>
+				<td>${T.date(crdate)}</td>
+				<td>${T.date(last_login)}</td>
+				<td>{{html T.alllists.actions(id)}}</td>				
+			</tr>
+		{{/each}}
+		</table>		
+		<div class="pages-box">${T.paging(logPaging)}</div>
+
+</div>
+
+</script>
+
+
+<script id="alllistsActionsTpl" type="text/x-jquery-tmpl">	
+	<div>				
+		{{each(i, val) top}}
+			<a class="btn_small gray" href="#" onclick="return T.alllists.menu.${i}.click('${id}');"><span>${val.text}</span></a>
+		{{/each}}
+		<div class="clear"></div>
+		<div id="hide-menu-${id}" class="actions-hide">
+		{{each(i, val) hide}}
+			<a class="btn_list gray"><span>${val.text}</span></a>
+		{{/each}}
+		</div>	
+	</div>		
+</script>

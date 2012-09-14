@@ -121,6 +121,11 @@ T.start = (function(self, $){
 			T.loadModule('recomendations',{'scripts':['/pub/js/plugins/module.recomendations.js'],'tpls':['/pub/js/views/recomendations.html']});			
 			return false;
 		});
+		$('#menu-user-lists').click(function(){
+			highlightMenu(this);				   
+			T.loadModule('alllists',{'scripts':['/pub/js/plugins/module.alllists.js'],'tpls':['/pub/js/views/alllists.html']});
+			return false;			   
+		});
 		
 		
 	}

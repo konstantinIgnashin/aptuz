@@ -85,6 +85,14 @@ a.btn_small.gray {background-position: left -386px; color:#333;}
 a.btn_small.gray span{background-position:right -386px;}	
 a.btn_small.gray:hover {background-position: left -412px;}	
 a.btn_small.gray:hover span {background-position: right -412px;}	
+
+a.btn_list {display:block; font-size:14px;height:26px; padding-left:16px; color:#333; cursor: pointer;}
+a.btn_list span{display:block;height:21px;overflow: hidden;padding-right: 15px; padding-top:5px;cursor: pointer; }
+
+a.btn_list.gray {background:#f2f2f2;}
+a.btn_list.gray span{background:#f2f2f2;}
+a.btn_list.gray:hover {background: #fbfbfb;}	
+a.btn_list.gray:hover span {background: #fbfbfb;}	
 /* --buttons */
 
 /*checkbox*/
@@ -182,3 +190,15 @@ text-transform:uppercase;}
 .rec-box .body .body-left :first-child {}
 .rec-box .body .body-right {float:right;}
 .rec-box .body .body-right table.t td{padding:3px;border-bottom:1px solid #ccc;}
+
+/*right tab menu*/
+
+.tab-box {border-bottom:1px solid #ccc;height:34px;background:#f2f2f2;}
+.tab-box  ul li {list-style:none;float:left;}
+.tab-box  ul li a{border-right: 1px solid #DDDDDD; border-left: 1px solid #FBFBFB; color: #58595B; display: block; padding: 9px 20px; text-decoration: none;}
+.tab-box  ul li a:hover {background:#f8f8f8;}
+.tab-box  ul li a.on { background: #E8E8E8; box-shadow: 0 1px 1px #C5C5C5 inset;}
+.tab-body a.btn_small {margin-right:3px;}
+.tab-body .actions-hide {position:absolute; display:none; border:1px solid #ccc; margin-top:2px; margin-left:60px;border-radius:2px 2px 2px 2px;}
+.tab-body .actions-hide.show {display:block;}
+.tab-body .actions-hide a {border-bottom:1px solid #ccc;}

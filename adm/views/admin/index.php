@@ -40,6 +40,7 @@
 				<li><a id="menu-comments" class="item menu-comments" href="/admin/comments">Комментарии</a></li>
 				<li><a id="menu-calendar-stat"  class="item menu-calendar-stat"  href="/admin/calendar_stat">Статистика запросов</a></li>
 				<li><a id="menu-recomendations" class="item menu-recomendations" href="/recomendations">Недельные рек-дации</a></li>				
+				<li><a id="menu-user-lists"     class="item menu-alllists" href="/alllists">Листы и списки</a></li>
 				<!--<li><a id="menu-calc"    class="menu-calc"   href="/admin/calculator">Калькулятор</a></li>				
 				<li><a id="menu-history" class="menu-history" href="/admin/log">История сделок</a></li>
 				<li><a id="menu-config"  class="menu-config"  href="/admin/log">Конфигурация робота</a></li>-->
