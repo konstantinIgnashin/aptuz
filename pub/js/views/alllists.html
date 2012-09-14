@@ -12,26 +12,24 @@
 </script>
 
 <script id="roomUsersTpl" type="text/x-jquery-tmpl">	
-<div>
-		<div class="head">Зарегистрированые юзеры trader-room</div>
-		<table>
+	<div>
+		<div class="head">Зарегистрированые в trader-room: ${logPaging.ns}</div>
+		<table style="width:1033px;">
 		<tr>
 			<th>#</th>
-			<th width="200" style="overflow:hidden;">Email</th>
-			<th>Name</th>
-			<th>Url</th>
+			<th>Email</th>
+			<th>Name</th>			
 			<th>An/Tr</th>
 			<th>Phone</th>
 			<th width="100">Register</th>
 			<th width="100">Last login</th>
-			<th>Actions</th>				
+			<th width="115">Actions</th>				
 		</tr>
 		{{each(i, val) log}}
 			<tr {{if i%2}}class="odd"{{/if}} >
 				<td>${id}</td>
 				<td><div style="width:200px;overflow:hidden;">${email}</div></td>
-				<td>${first_name}, ${last_name}</td>
-				<td>${url}</td>
+				<td>${first_name}, ${last_name}</td>				
 				<td>${analitik}/${trader}</td>
 				<td>${phone}</td>
 				<td>${T.date(crdate)}</td>
@@ -41,21 +39,19 @@
 		{{/each}}
 		</table>		
 		<div class="pages-box">{{html T.paging(logPaging) }}</div>
-
-</div>
-
+	</div>
 </script>
 
 
 <script id="alllistsActionsTpl" type="text/x-jquery-tmpl">	
 	<div>				
 		{{each(i, val) top}}
-			<a class="btn_small gray" href="#" onclick="return T.alllists.menu.${i}.click('${id}');"><span>${val.text}</span></a>
+			<a class="btn_small gray" href="#" onclick="return T.alllists.menu.${i}(${id});"><span>${val}</span></a>
 		{{/each}}
 		<div class="clear"></div>
 		<div id="hide-menu-${id}" class="actions-hide">
 		{{each(i, val) hide}}
-			<a class="btn_list gray"><span>${val.text}</span></a>
+			<a class="btn_list gray"><span>${val}</span></a>
 		{{/each}}
 		</div>	
 	</div>		

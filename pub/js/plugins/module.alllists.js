@@ -4,9 +4,9 @@ T.alllists = (function(self, $){
 		c:'#content',
 		logs:function(){
 			$('.pagination','.summary-log').click(function(){				
-				return self.loadLogs(this.name);				
+				return self.load($('a.on','.tab-box')[0],this.name);				
 			});
-			T.paging.keyboardBinds(".summary-log", this.c, self.loadLogs);			
+			//T.paging.keyboardBinds(".summary-log", this.c, self.load);			
 		},
 		tabs:function(){
 			$('a','.tab-box').removeClass('on');
@@ -19,7 +19,7 @@ T.alllists = (function(self, $){
 	self.load = function(el,page){
 		T.loader.getJSON(el.href+'?page='+page, function(data){				
 			$('.tab-body',"#content").html(T.tmpl("#roomUsersTpl",data.success));			
-			//_callBack.logs();			
+			_callBack.logs();			
 		});	
 		return false;
 	}
@@ -29,21 +29,20 @@ T.alllists = (function(self, $){
 		$('a:first','.tab-box').click();		
 	}
 	/*-Actions-*/
-	self.actions = function(id){
-		var top = {}, hide = {};
-		top.edit = {text:'Edit',click:self.menu.edit.click};
-		top.or = {text:'All',click:self.menu.or.click};
-		hide.statistic = {text:'View statistic',click:self.menu.statistic.click};
-		hide.del = {text:'Delete item',click:self.menu.del.click};		
-		return T.tmpl("#alllistsActionsTpl",{top:top, hide:hide, id:id});
+	self.actions = function(id){		
+		var obj = {};
+		obj.top = {edit:'Edit',or:'All'};
+		obj.hide = {statistic:'View statistic',del:'Delete item'};			
+		obj.id = id;
+		return T.tmpl("#alllistsActionsTpl",obj);
 	}
-	self.menu = {edit:{click:''},
-				 or:{click:function(id){
+	self.menu = {edit:false,
+				 or:function(id){
 					 $('#hide-menu-'+id).toggleClass('show');
 					 return false;
-				}},
-				del:{click:''},
-				statistic:{click:''}
+				},
+				del:false,
+				statistic:false
 				};
 	
 	$(document).ready(self.start);		
