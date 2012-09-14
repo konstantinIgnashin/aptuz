@@ -17,19 +17,19 @@
 		<table>
 		<tr>
 			<th>#</th>
-			<th>Email</th>
+			<th width="200" style="overflow:hidden;">Email</th>
 			<th>Name</th>
 			<th>Url</th>
 			<th>An/Tr</th>
 			<th>Phone</th>
-			<th>Register</th>
-			<th>Last login</th>
+			<th width="100">Register</th>
+			<th width="100">Last login</th>
 			<th>Actions</th>				
 		</tr>
 		{{each(i, val) log}}
 			<tr {{if i%2}}class="odd"{{/if}} >
 				<td>${id}</td>
-				<td>${email}</td>
+				<td><div style="width:200px;overflow:hidden;">${email}</div></td>
 				<td>${first_name}, ${last_name}</td>
 				<td>${url}</td>
 				<td>${analitik}/${trader}</td>
@@ -40,7 +40,7 @@
 			</tr>
 		{{/each}}
 		</table>		
-		<div class="pages-box">${T.paging(logPaging)}</div>
+		<div class="pages-box">{{html T.paging(logPaging) }}</div>
 
 </div>
 
