@@ -2,27 +2,45 @@ T.alllists = (function(self, $){
 	
 	var _callBack = {
 		c:'#content',
-		logs:function(){
-			$('.pagination','.summary-log').click(function(){				
-				return self.load($('a.on','.tab-box')[0],this.name);				
+		paging:function(){
+			$('.pagination',this.c).click(function(){				
+				return self.load(this.name, $('a.on','.tab-box')[0]);				
+			});			
+			T.paging.keyboardBinds(".summary-log", this.c, function(page){
+				return self.load(page, $('a.on','.tab-box')[0]);
 			});
-			//T.paging.keyboardBinds(".summary-log", this.c, self.load);			
+			$(".summary-log", this.c).focus();	
+			return this;
 		},
 		tabs:function(){
 			$('a','.tab-box').removeClass('on');
 			$(this).addClass('on');
-			self.load(this,0);
-			return false;
+			return self.load(0,this);			
 		}
 	}; 
 	
-	self.load = function(el,page){
-		T.loader.getJSON(el.href+'?page='+page, function(data){				
-			$('.tab-body',"#content").html(T.tmpl("#roomUsersTpl",data.success));			
-			_callBack.logs();			
-		});	
+	self.load = function(page,el){
+		T.loader.getJSON(el.href+'?page='+page, self.handlers[el.name]);	
 		return false;
 	}
+	self.handlers={
+		room:function(data){
+			$('.tab-body').html(T.tmpl("#roomUsersTpl",data.success));			
+			_callBack.paging();
+		},
+		downloads:function(data){
+			$('.tab-body').html(T.tmpl("#downloadUsersTpl",data.success));
+			_callBack.paging();
+		},
+		buys:function(data){ 
+			$('.tab-body').html(T.tmpl("#apiUsersTpl",data.success));
+			_callBack.paging();
+		}
+		
+	};
+	
+	
+	
 	self.start = function(){
 		$('#content').html(T.tmpl("#alllistsTpl"));
 		$('a','.tab-box').click(_callBack.tabs);
@@ -44,6 +62,9 @@ T.alllists = (function(self, $){
 				del:false,
 				statistic:false
 				};
+	
+
+	
 	
 	$(document).ready(self.start);		
 	return self;

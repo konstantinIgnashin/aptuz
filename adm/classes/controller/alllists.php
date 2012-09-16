@@ -17,6 +17,24 @@ class Controller_Alllists extends Controller {
 			$this->ajaxOutput();
 	}
 	
+	public function action_downloads(){
+			$this->setVars();
+			$m = new Model_Alllists();	
+			$this->ajaxResponse('log',$m->getDownloadsUsers($this->GET['page']*20));
+			$logPaging = array('onPage'=>20,'ns'=>$m->getDownloadsUsersNs(),'activePage'=>$this->GET['page']);
+			$this->ajaxResponse('logPaging',$logPaging);
+			$this->ajaxOutput();	
+	}
+	
+	public function action_buys(){
+			$this->setVars();
+			$m = new Model_Alllists();	
+			$this->ajaxResponse('log',$m->getBuysUsers($this->GET['page']*20));
+			$logPaging = array('onPage'=>20,'ns'=>$m->getBuysUsersNs(),'activePage'=>$this->GET['page']);
+			$this->ajaxResponse('logPaging',$logPaging);
+			$this->ajaxOutput();	
+	}
+	
 	function ajaxResponse($key,$data){
 		$this->ajaxSuccess['success'][$key] = $data;		
 	}

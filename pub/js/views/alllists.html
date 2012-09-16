@@ -2,12 +2,12 @@
 	<div>				
 		<div class="tab-box">
 			<ul>
-				<li><a href="/alllists/room">Юзеры</a></li>
-				<li><a href="/alllists/downloads">Скачано</a></li>
-				<li><a href="/alllists/buys">Api</a></li>
+				<li><a href="/alllists/room" name="room">Room users</a></li>
+				<li><a href="/alllists/downloads" name="downloads">Downloads</a></li>
+				<li><a href="/alllists/buys" name="buys">Api</a></li>
 			</ul>
 		</div>
-		<div class="summary-log tab-body"></div>
+		<div class="summary-log tab-body" tabindex="1"></div>
 	</div>		
 </script>
 
@@ -55,4 +55,59 @@
 		{{/each}}
 		</div>	
 	</div>		
+</script>
+
+<script id="downloadUsersTpl" type="text/x-jquery-tmpl">	
+	<div>
+		<div class="head">Скачавшие файлы: ${logPaging.ns}</div>
+		<table style="width:1033px;">
+		<tr>
+			<th>#</th>
+			<th>Email</th>
+			<th>Title</th>			
+			<th>Downloads</th>
+			<th width="100">Date</th>			
+			<th width="115">Actions</th>				
+		</tr>
+		{{each(i, val) log}}
+			<tr {{if i%2}}class="odd"{{/if}} >
+				<td>${id}</td>
+				<td><div style="width:200px;overflow:hidden;">${email}</div></td>
+				<td><a href="http://finans.trader.uz/${static_url}" target="_blank">${title}</a></td>				
+				<td>${downloads}</td>
+				<td>${T.date(crdate)}</td>
+				<td>{{html T.alllists.actions(id)}}</td>				
+			</tr>
+		{{/each}}
+		</table>		
+		<div class="pages-box">{{html T.paging(logPaging) }}</div>
+	</div>
+</script>
+
+<script id="apiUsersTpl" type="text/x-jquery-tmpl">	
+	<div>
+		<div class="head">Оплатившие юзеры: ${logPaging.ns}</div>
+		<table style="width:1033px;">
+		<tr>
+			<th>#</th>
+			<th width="100">Date</th>
+			<th>Email</th>
+			<th>Title</th>			
+			<th>Downloads</th>
+						
+			<th width="115">Actions</th>				
+		</tr>
+		{{each(i, val) log}}
+			<tr {{if i%2}}class="odd"{{/if}} >
+				<td>${id}</td>
+				<td>${T.date(crdate)}</td>
+				<td><div style="width:200px;overflow:hidden;">${email}</div></td>
+				<td><a href="http://finans.trader.uz/${static_url}" target="_blank">${title}</a></td>				
+				<td>${downloads}</td>				
+				<td>{{html T.alllists.actions(id)}}</td>				
+			</tr>
+		{{/each}}
+		</table>		
+		<div class="pages-box">{{html T.paging(logPaging) }}</div>
+	</div>
 </script>
