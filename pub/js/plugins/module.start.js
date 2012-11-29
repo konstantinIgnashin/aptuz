@@ -127,6 +127,12 @@ T.start = (function(self, $){
 			return false;			   
 		});
 		
+		$('#signal-table').click(function(){
+			highlightMenu(this);				   
+			T.loadModule('signals',{'scripts':['/pub/js/plugins/module.signals.js'],'tpls':['/pub/js/views/signals.html']});
+			return false;			   
+		});
+		
 		
 	}
 
