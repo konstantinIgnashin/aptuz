@@ -8,7 +8,35 @@
 
 <script id="signalsTpl" type="text/x-jquery-tmpl">	
 <div>
-		<div class="summary-log" tabindex="1">
+	<div class="summary-log ip">
+		<div class="head">Индикатор активных трендов</div>
+		<table>
+			<tr>
+				<th>Символ</th>
+				<th>Периоды</th>				
+			</tr>
+			{{each(i, val) activeTrends}}
+			<tr {{if i%2}}class="odd"{{/if}}>
+				<td>${i}</td>
+				<td>
+				{{each(i2, val2)  val}}
+					{{if val2>0}}
+						<span class="signal gray">{{html T.signals.periodToStr(val2) }}</span>
+					{{else}}
+						{{if direct==0}}<span class="signal blue">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==1}}<span class="signal green">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==2}}<span class="signal red">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==3 || direct==4}}<span class="signal gray">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						
+					{{/if}}					
+				{{/each}}
+				</td>
+				
+			</tr>
+			{{/each}}			
+		</table>	
+	</div>
+	<div class="summary-log" tabindex="1" style="float:right;">
 		<div class="head">История торговых сигналов</div>
 		<table>
 		<tr>

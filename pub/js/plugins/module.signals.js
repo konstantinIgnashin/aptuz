@@ -20,6 +20,11 @@ T.signals = (function(self, $){
 	  return Math.round( x*m )/m; 
 	}
 	
+	self.periodToStr = function(period){
+		periods = {x1440:'D1',x240:'H4',x60:'H1',x30:'M30',x15:'M15', x5:'M5', x1:'M1'};		
+		return periods["x"+period];		
+	}
+	
 	var _callBack = {
 		c:'#content',
 		signals:function(data){			
