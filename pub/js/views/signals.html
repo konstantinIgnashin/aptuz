@@ -13,13 +13,18 @@
 		<table>
 			<tr>
 				<th>Символ</th>
-				<th>Периоды</th>				
+				<th>D1</th>
+				<th>H4</th>
+				<th>H1</th>
+				<th>M30</th>
+							
 			</tr>
 			{{each(i, val) activeTrends}}
 			<tr {{if i%2}}class="odd"{{/if}}>
 				<td>${i}</td>
-				<td>
+				
 				{{each(i2, val2)  val}}
+					<td>
 					{{if val2>0}}
 						<span class="signal gray">{{html T.signals.periodToStr(val2) }}</span>
 					{{else}}
@@ -28,9 +33,10 @@
 						{{if direct==2}}<span class="signal red">{{html T.signals.periodToStr(period) }}</span>{{/if}}
 						{{if direct==3 || direct==4}}<span class="signal gray">{{html T.signals.periodToStr(period) }}</span>{{/if}}
 						
-					{{/if}}					
+					{{/if}}	
+					</td>				
 				{{/each}}
-				</td>
+				
 				
 			</tr>
 			{{/each}}			
