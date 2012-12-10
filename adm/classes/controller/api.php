@@ -6,6 +6,11 @@ class Controller_Api extends Controller {
 		$this->response->body('hello, world!');
 	}
 	
+	public function action_candles(){
+		$data = Model_Api::getLastCandles($_GET['symbol'],$_GET['period']);
+		$this->response->body('hello');	
+	}
+	
 	public function action_richmedia(){		
 		if($_GET['action']=='start'){
 			Model_Api::insertLoad($_SERVER['REMOTE_ADDR']);

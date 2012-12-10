@@ -10,8 +10,10 @@ class Model_Api extends Kohana_Model {
 	}
 	
 	public static function getSubscribers(){
-		return  DB::query(Database::SELECT, "SELECT * FROM api_users ORDER BY id DESC Limit 0, 20")->execute()->as_array();		   
+		return  DB::query(Database::SELECT, "SELECT * FROM api_users ORDER BY id DESC Limit 0, 20")->execute()->as_array();		
+	}
 	
-	
+	public static function getLastCandles($symbol, $period){
+		return  DB::query(Database::SELECT, "SELECT * FROM history_eur_usd ORDER BY id DESC Limit 0, 30")->execute()->as_array();		
 	}
 }
