@@ -33,6 +33,11 @@ class Controller_Signals extends Controller {
 		return $data;
 	}
 	
+	public function action_iframe(){
+		$view = View::factory('admin/iframe');			
+		$this->response->body($view->render());	
+	}
+	
 	
 	
 	

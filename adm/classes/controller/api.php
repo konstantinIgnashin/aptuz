@@ -7,8 +7,16 @@ class Controller_Api extends Controller {
 	}
 	
 	public function action_candles(){
-		$data = Model_Api::getLastCandles($_GET['symbol'],$_GET['period']);
-		$this->response->body('hello');	
+		if(!isset($_GET['day']))$_GET['day'] = 21;
+		if(!isset($_GET['month']))$_GET['month'] = 8;
+		if(!isset($_GET['year']))$_GET['year'] = 2009;
+		$data = Model_Api::getLastCandles($_GET['symbol'],$_GET['period'],$_GET['day'],$_GET['month'], $_GET['year']);
+		$c='';
+		foreach($data as $k=>$a){			
+			$c.="[".($k+1).', '.$a['bar_open'].', '.$a['bar_high'].', '.$a['bar_low'].', '.$a['bar_close']."],x";
+		}
+		
+		$this->response->body('{"a":"'.rtrim($c,",").'"}');	
 	}
 	
 	public function action_richmedia(){		
