@@ -14,4 +14,23 @@ class Model_Signals extends Kohana_Model {
 	public function getLastTrend($pair,$period){
 		return  DB::query(Database::SELECT, "SELECT * FROM trader_signals WHERE symbol='".$pair."' and period='".$period."' ORDER BY id DESC Limit  0,1")->execute()->as_array();		
 	}
+	
+	// signals in
+	public function quoteExists($symbol, $period, $tstamp) {
+		$data = DB::query(Database::SELECT, "SELECT id,symbol FROM trader_quotes_".$period." WHERE tstamp='".$tstamp."' ORDER BY id DESC")->execute()->as_array();
+		foreach($data as $k=>$v){
+			if($v['symbol']==$symbol)	return $v['id'];			
+		}		
+		return false;
+	}
+	
+	public function qouteInsert($symbol, $period, $tstamp, $pub_date, $o, $h, $l, $c, $volume){
+		DB::query(Database::INSERT, "INSERT INTO trader_quotes_".$period." (symbol,tstamp,pub_date,o,h,l,c,volume) 
+		VALUES ('".$symbol."','".$tstamp."','".$pub_date."','".$o."','".$h."','".$l."','".$c."','".$volume."')")->execute();		
+	}
+	
+	public function qouteUpdate($id, $period, $o, $h, $l, $c, $volume){
+		DB::query(Database::UPDATE, "UPDATE trader_quotes_".$period." 
+		SET o='".$o."',	h='".$h."',	l='".$l."',	c='".$c."',	volume='".$volume."'	WHERE id='".$id."' LIMIT 1")->execute();		
+	}
 }

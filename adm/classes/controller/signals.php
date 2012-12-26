@@ -38,6 +38,29 @@ class Controller_Signals extends Controller {
 		$this->response->body($view->render());	
 	}
 	
+	public function action_in(){
+		$symbol = $_GET['symbol'];
+		$period = $_GET['period'];
+		$tstamp = $_GET['tstamp'];
+		$pub_date = $this->getDate($_GET['tstamp']);
+		$o = $_GET['o'];
+		$h = $_GET['h'];
+		$l = $_GET['l'];
+		$c = $_GET['c'];
+		$volume = $_GET['volume'];
+		$m = new Model_Signals();		
+		if(!$id = $m->quoteExists($symbol, $period, $tstamp)){
+			$m->qouteInsert($symbol, $period, $tstamp, $pub_date, $o, $h, $l, $c, $volume);
+		}
+		else{
+			$m->qouteUpdate($id,$period, $o, $h, $l, $c, $volume);
+		}		
+	}
+	
+	public function getDate($tstamp){
+		return date('Y-m-d H:i:s',$tstamp);
+	}
+	
 	
 	
 	
