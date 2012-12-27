@@ -205,9 +205,12 @@ text-transform:uppercase;}
 
 /*ibo provider table*/
 
-.ip .signal {display:block; float:left; width:32px; height:24px;padding:8px 0 0 0; font-size:12px; font-weight:bold; text-align:center; margin-right:10px; text-shadow:1px 1px 2px #fff;}
+.ip .signal {display:block; float:left; height:18px;padding:2px 10px 0 10px; font-size:12px; font-weight:bold; text-align:center; text-shadow:1px 1px 2px #fff;border-radius:2px;}
 
-.ip .signal.gray  {background:url("../images/circles/gray-32x32.png") no-repeat;	color:#555;}	
-.ip .signal.green {background:url("../images/circles/green-32x32.png") no-repeat; color:#fff;}
-.ip .signal.blue  {background:url("../images/circles/blue-32x32.png") no-repeat; color:#fff;}
-.ip .signal.red   {background:url("../images/circles/red-32x32.png") no-repeat; color:#fff;}
+.ip .signal.gray  {background:#ccc;  border-top:#ddd solid 1px; border-left:#ddd solid 1px;	border-right:#bbb solid 1px; border-bottom:#bbb solid 1px;color:#555;}	
+.ip .signal.green {background:#009933;border-top:#009900 solid 1px;; 
+border-left:#009900 solid 1px;	border-right:#006600 solid 1px; border-bottom:#006600 solid 1px; color:#fff;}
+.ip .signal.blue  {background:#0066FF; border-right:#006699 solid 1px; border-bottom:#006699 solid 1px;border-top:#0099FF solid 1px; 
+border-left:#0099FF solid 1px;color:#fff;}
+.ip .signal.red   {background:#990033;border-top:#990066 solid 1px; 
+border-left:#990066 solid 1px; border-right:#990000 solid 1px; border-bottom:#990000 solid 1px; color:#fff;}
