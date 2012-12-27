@@ -2,13 +2,20 @@
 
 class Model_Signals extends Kohana_Model {	
 	public static $t = 'trader_signals';		
-	
-	public static function getSignals($offset){
-		return  DB::query(Database::SELECT, "SELECT * FROM trader_signals ORDER BY id DESC Limit  ".$offset.', 20')->execute()->as_array();	
+	public $q = '';
+	public function getSignals($offset,$rowsPerPage, $pair,$period){
+		
+		if($pair!='0'){
+			$this->q.=" and symbol='".$pair."'";
+		}	
+		if($period!='0'){
+			$this->q.=" and period='".$period."'";
+		}		
+		return  DB::query(Database::SELECT, "SELECT * FROM trader_signals WHERE 1=1 ".$this->q." ORDER BY id DESC Limit  ".$offset.', '.$rowsPerPage)->execute()->as_array();	
 	}
 	
-	public function getSignalsNS(){
-		   return DB::query(Database::SELECT, "SELECT id FROM trader_signals")->execute()->count();		   
+	public function getSignalsNS(){		   
+		   return DB::query(Database::SELECT, "SELECT id FROM trader_signals WHERE 1=1 ".$this->q."")->execute()->count();		   
 	}
 	
 	public function getLastTrend($pair,$period){

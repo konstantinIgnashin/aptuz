@@ -29,8 +29,8 @@
 						<span class="signal gray">{{html T.signals.periodToStr(val2) }}</span>
 					{{else}}
 						{{if direct==0}}<span class="signal blue">{{html T.signals.periodToStr(period) }}</span>{{/if}}
-						{{if direct==1}}<span class="signal green">{{html T.signals.periodToStr(period) }}</span>{{/if}}
-						{{if direct==2}}<span class="signal red">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==1}}<span class="signal green" title="Buy: ${buy} Sell: ${sell}" onclick="T.signals.loadStatistic('${period}','${pair}');">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==2}}<span class="signal red" title="Buy: ${buy} Sell: ${sell}" onclick="T.signals.loadStatistic('${period}','${pair}');">{{html T.signals.periodToStr(period) }}</span>{{/if}}
 						{{if direct==3 || direct==4}}<span class="signal gray">{{html T.signals.periodToStr(period) }}</span>{{/if}}
 						
 					{{/if}}	
@@ -42,8 +42,24 @@
 			{{/each}}			
 		</table>	
 	</div>
-	<div class="summary-log" tabindex="1" style="float:right;">
+	<div class="summary-log ip-list" tabindex="1" style="float:right;">
 		<div class="head">История торговых сигналов</div>
+		<div class="settings">
+			<a class="btn_small gray s_btn" name="0" href="#"><span>Search</span></a>
+			<select name="pair" id="ip-list-pair" class="pairs">
+				<option value="">PAIRS</option>
+				{{each(i, val) pairs}}
+					<option value="${val}" {{if val==pair}}selected="selected"{{/if}}>${val}</option>
+				{{/each}}						
+			</select>
+			<select name="period" id="ip-list-period" class="periods">
+				<option value="">ALL</option>
+				{{each(i, val) periods}}
+					<option value="${val}" {{if val==period}}selected="selected"{{/if}}>${i}</option>
+				{{/each}}						
+			</select>
+			<div class="clear"></div>
+		</div>
 		<table>
 		<tr>
 			<th>#</th>

@@ -35,11 +35,16 @@ T.signals = (function(self, $){
 			T.paging.keyboardBinds(".summary-log", this.c, function(page){
 				return self.start(page);
 			});
+			$('.s_btn','.ip-list').click(function(){
+				return self.start(0);								  
+			});
 		}		
 	};
 	
 	self.start = function(page){		
-		T.loader.getJSON('/signals/?page='+page, _callBack.signals);
+		var pair = $('#ip-list-pair').val() || 0;
+		var period = $('#ip-list-period').val() || 0;
+		T.loader.getJSON('/signals/?page='+page+'&pair='+ pair + '&period='+period, _callBack.signals);
 		return false;
 	};
 	

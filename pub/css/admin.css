@@ -214,3 +214,7 @@ border-left:#009900 solid 1px;	border-right:#006600 solid 1px; border-bottom:#00
 border-left:#0099FF solid 1px;color:#fff;}
 .ip .signal.red   {background:#990033;border-top:#990066 solid 1px; 
 border-left:#990066 solid 1px; border-right:#990000 solid 1px; border-bottom:#990000 solid 1px; color:#fff;}
+
+.ip-list .settings {padding:5px;border-right:1px solid #ccc; border-left:1px solid #ccc;}
+.ip-list .settings .s_btn{float:right;}
+.ip-list .settings .pairs, .ip-list .settings .periods {float:right;margin-right:5px;padding:2px; height:26px;}
