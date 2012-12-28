@@ -1,4 +1,5 @@
 T.signals = (function(self, $){				  
+	self.data = {};
 	self.set = function getQueryVariables() {
             //полачаем строку запроса (?a=123&b=qwe) и удаляем знак ?
             var query = window.location.search.substring(1);
@@ -25,9 +26,23 @@ T.signals = (function(self, $){
 		return periods["x"+period];		
 	}
 	
+	self.shadow = function(period, pair){
+		if(period==self.data.period && pair==self.data.pair){			
+			return 'focus';
+		}
+		return '';
+	}
+	
+	self.loadStatistic = function(period, pair, el){
+		$('#ip-list-period').val(period);
+		$('#ip-list-pair').val(pair);			
+		return self.start(0);
+	}
+	
 	var _callBack = {
 		c:'#content',
-		signals:function(data){			
+		signals:function(data){				
+			self.data= data.success;			
 			$('#content').html(T.tmpl("#signalsTpl",data.success));
 			$('.pagination',this.c).click(function(){				
 				return self.start(this.name);				

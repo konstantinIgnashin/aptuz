@@ -11,7 +11,7 @@ class Model_Signals extends Kohana_Model {
 		if($period!='0'){
 			$this->q.=" and period='".$period."'";
 		}		
-		return  DB::query(Database::SELECT, "SELECT * FROM trader_signals WHERE 1=1 ".$this->q." ORDER BY id DESC Limit  ".$offset.', '.$rowsPerPage)->execute()->as_array();	
+		return  DB::query(Database::SELECT, "SELECT * FROM trader_signals WHERE 1=1 ".$this->q." ORDER BY tstamp DESC Limit  ".$offset.', '.$rowsPerPage)->execute()->as_array();	
 	}
 	
 	public function getSignalsNS(){		   

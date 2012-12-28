@@ -26,12 +26,12 @@
 				{{each(i2, val2)  val}}
 					<td>
 					{{if val2>0}}
-						<span class="signal gray">{{html T.signals.periodToStr(val2) }}</span>
+						<span class="signal gray " onclick="T.signals.loadStatistic('${period}','${i}');">{{html T.signals.periodToStr(val2) }}</span>
 					{{else}}
-						{{if direct==0}}<span class="signal blue">{{html T.signals.periodToStr(period) }}</span>{{/if}}
-						{{if direct==1}}<span class="signal green" title="Buy: ${buy} Sell: ${sell}" onclick="T.signals.loadStatistic('${period}','${pair}');">{{html T.signals.periodToStr(period) }}</span>{{/if}}
-						{{if direct==2}}<span class="signal red" title="Buy: ${buy} Sell: ${sell}" onclick="T.signals.loadStatistic('${period}','${pair}');">{{html T.signals.periodToStr(period) }}</span>{{/if}}
-						{{if direct==3 || direct==4}}<span class="signal gray">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==0}}<span class="signal blue {{html T.signals.shadow(period,i)}}" onclick="T.signals.loadStatistic('${period}','${i}');">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==1}}<span class="signal green {{html T.signals.shadow(period,i)}}" title="Buy: ${buy} Sell: ${sell}" onclick="T.signals.loadStatistic('${period}','${i}');">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==2}}<span class="signal red {{html T.signals.shadow(period,i)}}" title="Buy: ${buy} Sell: ${sell}" onclick="T.signals.loadStatistic('${period}','${i}',this);">{{html T.signals.periodToStr(period) }}</span>{{/if}}
+						{{if direct==3 || direct==4}}<span class="signal gray" onclick="T.signals.loadStatistic('${period}','${i}');">{{html T.signals.periodToStr(period) }}</span>{{/if}}
 						
 					{{/if}}	
 					</td>				
@@ -68,6 +68,7 @@
 			<th>Период</th>		
 			<th>BUY</th>
 			<th>SELL</th>
+			<th>Ask</th>
 			<th>Range</th>
 			<th>Status</th>
 			<th>Действие</th>				
@@ -79,7 +80,8 @@
 				<td>${symbol}</td>				
 				<td>${period}</td>
 				<td>${buy}</td>	
-				<td>${sell}</td>		
+				<td>${sell}</td>
+				<td>${ask}</td>		
 				<td>{{html T.signals.round((buy-sell),5) }}</td>
 				<td>{{if direct==0}}Waiting{{/if}}{{if direct==1}}Buy Trend{{/if}}{{if direct==2}}Sell Trend{{/if}}{{if direct==3}}Buy Close{{/if}}{{if direct==4}}Sell Close{{/if}} </td>
 				<td>${logText}</td>				
