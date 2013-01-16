@@ -3,9 +3,12 @@
 class Model_Iboprovider extends Kohana_Model {	
 	public $t = 'trader_signals';
 	public static function insertSignal($g){
-		   $s = self::checkSignal($g['symbol'], $g['tstamp'], $g['period']);
-		   if($s){
+		   $s = self::checkSignal($g['symbol'], $g['tstamp'], $g['period']);		  
+		   if($s){ 
 		   	$update='';
+			if($s[0]['direct']== 3 || $s[0]['direct'] == 4){ // if trend closed no any updates better 
+				return ;
+			}
 			if($s[0]['direct']==0){
 				if($g['ask']>$g['high']){ //run bull trend
 					$update = ", direct='1' ";
@@ -17,11 +20,20 @@ class Model_Iboprovider extends Kohana_Model {
 			if($s[0]['direct']==1){
 				if($g['ask']<$g['low']){ //end bull trend
 					$update = ", direct='3' ";
+				} else {                      // buy trend opened, set high potencial
+					if($g['ask']>$s[0]['high']){
+						$update = ", high='".$g['ask']."' ";
+					}
 				}
 			}
+			
 			if($s[0]['direct']==2){
 				if($g['ask']>$g['high']){ //end sell trend
 					$update = ", direct='4' ";
+				}else {                      // buy trend opened, set high potencial
+					if($g['ask']<$s[0]['low'] || $s[0]['low']==0){
+						$update = ", low='".$g['ask']."' ";
+					}
 				}
 			}
 			DB::query(Database::UPDATE, 

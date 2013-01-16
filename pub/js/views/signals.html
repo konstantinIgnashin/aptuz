@@ -21,7 +21,7 @@
 			</tr>
 			{{each(i, val) activeTrends}}
 			<tr {{if i%2}}class="odd"{{/if}}>
-				<td>${i}</td>
+				<td><span class="create-slice">${i}</span></td>
 				
 				{{each(i2, val2)  val}}
 					<td>
@@ -93,4 +93,48 @@
 
 </div>
 
+</script>
+
+
+<script id="sliceDataTpl" type="text/x-jquery-tmpl">	
+<div>
+	<div class="summary-log data-slice">
+			<table>
+		<tr>
+			<th>#</th>
+			<th>Дата</th>
+			<th>Символ</th>	
+			<th>Период</th>		
+			<th>BUY</th>
+			<th>SELL</th>
+			<th>High</th>
+			<th>Low</th>			
+			<th>Profit</th>	
+			<th>Risk</th>	
+			<th>Ratio</th>
+		</tr>
+	{{each(i, val) table.data}}
+			<tr {{if i%2}}class="odd"{{/if}}>
+				<td>${id}</td>
+				<td>{{html T.date(tstamp)}}</td>
+				<td>${symbol}</td>				
+				<td>${period}</td>
+				<td>${buy}</td>	
+				<td>${sell}</td>
+				<td>${high}</td>
+				<td>${low}</td>	
+				<td>${profit}</td>
+				<td>${risk}</td>
+				<td>${ratio}%</td>				
+			</tr>
+		{{/each}}
+		<tr>
+			<th colspan="8" align="right">Total:</th>
+			<th>${table.total.profit}</th>
+			<th>${table.total.risk}</th>
+			<th>${table.total.ratio}</th>
+		</tr>
+		</table>	
+	</div>
+</div>
 </script>

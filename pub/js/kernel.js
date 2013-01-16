@@ -2,7 +2,7 @@
 var T = (function(self, $){		
 	_modules = {};
 	_scripts = ['/pub/js/jquery/tmpl.pack.js',	'/pub/js/jquery/modalbox.js', '/pub/js/jquery/mousewheel.js', '/pub/js/plugins/paging.js',				
-				'/pub/js/user.js',
+				'/pub/js/user.js', '/pub/js/jquery/class.popup.js',	
 				/*'/pub/js/plugins/jscalendar-1.0/calendar.js',
 				'/pub/js/plugins/jscalendar-1.0/lang/calendar-en.js',
 				'/pub/js/plugins/jscalendar-1.0/calendar-setup.js',*/				

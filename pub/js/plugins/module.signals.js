@@ -1,12 +1,12 @@
 T.signals = (function(self, $){				  
 	self.data = {};
 	self.set = function getQueryVariables() {
-            //полачаем строку запроса (?a=123&b=qwe) и удаляем знак ?
+            //РїРѕР»Р°С‡Р°РµРј СЃС‚СЂРѕРєСѓ Р·Р°РїСЂРѕСЃР° (?a=123&b=qwe) Рё СѓРґР°Р»СЏРµРј Р·РЅР°Рє ?
             var query = window.location.search.substring(1);
-            //получаем массив значений из строки запроса вида vars[0] = ‘a=123’;
+            //РїРѕР»СѓС‡Р°РµРј РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ РёР· СЃС‚СЂРѕРєРё Р·Р°РїСЂРѕСЃР° РІРёРґР° vars[0] = вЂa=123вЂ™;
             var vars = query.split("&");
             var arr = {};
-            //переводим массив vars в обычный ассоциативный массив
+            //РїРµСЂРµРІРѕРґРёРј РјР°СЃСЃРёРІ vars РІ РѕР±С‹С‡РЅС‹Р№ Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ
             for (var i=0;i<vars.length;i++) {
                 var pair = vars[i].split("=");
                 if (pair[0] == null || pair[0] == "") continue;
@@ -15,7 +15,7 @@ T.signals = (function(self, $){
             return arr;
     }
 	
-	self.round = function(x, n) { //x - число, n - количество знаков  
+	self.round = function(x, n) { //x - С‡РёСЃР»Рѕ, n - РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РЅР°РєРѕРІ  
 	  if(isNaN(x) || isNaN(n)) return false; 
 	  var m = Math.pow(10,n); 
 	  return Math.round( x*m )/m; 
@@ -53,7 +53,14 @@ T.signals = (function(self, $){
 			$('.s_btn','.ip-list').click(function(){
 				return self.start(0);								  
 			});
-		}		
+			$('.create-slice').click(function(){
+				T.loader.getJSON('/signals/slice?pair='+$(this).text(), _callBack.dataSlice);				
+			});
+		},
+		dataSlice:function(data){
+			var tpl = '<div class="head"><div class="text">'+data.success.pair+' profit data slice</div><a class="ppp-close">Г—</a></div><div class="body">'+T.tmpl("#sliceDataTpl",data.success)+'</div>';		
+			new Popup(tpl);			
+		}
 	};
 	
 	self.start = function(page){		

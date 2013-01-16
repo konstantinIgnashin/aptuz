@@ -220,3 +220,16 @@ border-left:#990066 solid 1px; border-right:#990000 solid 1px; border-bottom:#99
 .ip-list .settings {padding:5px;border-right:1px solid #ccc; border-left:1px solid #ccc;}
 .ip-list .settings .s_btn{float:right;}
 .ip-list .settings .pairs, .ip-list .settings .periods {float:right;margin-right:5px;padding:2px; height:26px;}
+
+
+/* popup styles */
+
+.ppp-mask {position: fixed; height: 100%; width: 100%;z-index: 100; display:none; top:0; left:0; background: rgba(120,120,120,.2);}	
+.ppp-body {position: absolute; z-index: 101; padding: 0 15px 14px;border-radius: 5px;box-shadow: 0 0 5px rgba(0,0,0,.4);background:#eee;}	
+.ppp-body .ppp-close {font-size: 14px;color: #aaa;text-shadow: 0 -1px 1px rbga(0,0,0,.6);font-weight: bold;cursor: pointer;float:right;} 
+.ppp-body .head {padding-bottom:10px;padding-top:10px; height:30px;}
+.ppp-body .head .text {margin:0;float:left;font-size: 14px;}
+.ppp-body .body {clear:both;}
+
+/*data slice popup*/
+.data-slice {height:580px; overflow-y:scroll;}

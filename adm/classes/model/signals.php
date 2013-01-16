@@ -40,4 +40,37 @@ class Model_Signals extends Kohana_Model {
 		DB::query(Database::UPDATE, "UPDATE trader_quotes_".$period." 
 		SET o='".$o."',	h='".$h."',	l='".$l."',	c='".$c."',	volume='".$volume."'	WHERE id='".$id."' LIMIT 1")->execute();		
 	}
+	
+	public function getSliceData($pair,$limit, $from, $to ){
+		$total = array('profit'=>0,'risk'=>0,'ratio'=>0);
+		$data = DB::query(Database::SELECT, "SELECT * FROM trader_signals 
+				WHERE symbol='".$pair."' and period='".(240)."' and direct>0 and tstamp>=".$from." and tstamp<=".$to." ORDER BY id ASC Limit 0,".$limit."")->execute()->as_array();
+		foreach($data as $k => $v ){
+			$data[$k]['risk'] = ($v['buy'] - $v['sell'])*10000;				
+			if($v['direct']==1 || $v['direct']==3){
+				$data[$k]['profit'] = round(($v['high'] - $v['buy']),5)*10000;
+				$data[$k]['ratio'] = round($data[$k]['profit']/$data[$k]['risk'],2)*100;				
+				if($v['high']==0){
+					unset($data[$k]);
+				}else{
+					$total['risk'] += $data[$k]['risk'];
+					$total['profit'] +=$data[$k]['profit'];
+				}
+			}
+			if($v['direct']==2 || $v['direct']==4){
+				$data[$k]['profit'] = round(($v['sell'] - $v['low']),5)*10000;
+				$data[$k]['ratio'] = round($data[$k]['profit']/$data[$k]['risk'],2)*100;				
+				if($v['low']==0){
+					unset($data[$k]);
+				}else{
+					$total['risk'] += $data[$k]['risk'];
+					$total['profit'] +=$data[$k]['profit'];
+				}
+			}
+			
+								
+		}
+		$total['ratio'] = round($total['profit']/$total['risk'],2)*100;		
+		return array('data'=>$data,'total'=>$total);
+	}
 }

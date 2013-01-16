@@ -3,7 +3,7 @@
 class Controller_Signals extends Controller {
 	public $rowsPerPage = 23;
 	public $pairs = array('EURUSD','GBPUSD','AUDUSD','USDJPY','USDCAD','USDCHF','NZDUSD','AUDCAD','AUDJPY','AUDNZD','CADJPY','CHFJPY','EURAUD','EURCAD','EURCHF','EURGBP','EURJPY','GBPCHF','GBPJPY','NZDJPY');
-	public $periods = array('D1'=>1440,'H4'=>240,'H1'=>60,'M30'=>30/*,15,5,1*/);
+	public $periods = array('D1'=>1440,'H4'=>240,'H1'=>60,'M30'=>30,'M15'=>15/*,15,5,1*/);
 	public $GET = array();
 	public function action_index(){
 			$this->setVars();
@@ -47,6 +47,17 @@ class Controller_Signals extends Controller {
 		$this->response->body($view->render());	
 	}
 	
+	public function action_slice(){
+		$year = 2005;
+		$this->setVars();
+		$m = new Model_Signals();			
+		$from = $this->getTstamp('1.1.'.$year.' 00:00');
+		$to   = $this->getTstamp('1.1.'.($year+1).' 00:00');
+		$this->ajaxResponse('table',$m->getSliceData($this->GET['pair'], 1000, $from, $to));
+		$this->ajaxResponse('pair',$this->GET['pair']);
+		$this->ajaxOutput();
+	}
+	
 	public function action_in(){
 		$symbol = $_GET['symbol'];
 		$period = $_GET['period'];
@@ -68,6 +79,14 @@ class Controller_Signals extends Controller {
 	
 	public function getDate($tstamp){
 		return date('Y-m-d H:i:s',$tstamp);
+	}
+	
+	private function getTstamp($date){
+		$a=explode(' ',$date);		
+		list($day,$month,$year)=explode('.',$a[0]);
+		list($hour,$min)=explode(':',$a[1]);
+		$d=array('day'=>$day,'month'=>$month,'year'=>$year,'hour'=>$hour,'min'=>$min,'sec'=>0);		
+		return mktime(intval($d['hour']), intval($d['min']), intval($d['sec']),intval($d['month']),intval($d['day']),intval($d['year']));
 	}
 	
 	
